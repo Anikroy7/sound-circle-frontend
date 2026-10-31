@@ -1,0 +1,40 @@
+import type { TrendingBand } from "@/types/landing";
+
+export const trendingBands: TrendingBand[] = [
+  {
+    slug: "neel-akash-collective",
+    name: "Neel Akash Collective",
+    monogram: "NA",
+    genre: "Folk fusion",
+    city: "Dhaka",
+    description: "Baul melodies over live electronics and tabla. Five members, playing cafés and university fests.",
+    status: "Gigging",
+    statusTone: "teal",
+    tone: "teal",
+    photoCaption: "live at a Dhanmondi café",
+  },
+  {
+    slug: "brickfield-static",
+    name: "Brickfield Static",
+    monogram: "BS",
+    genre: "Indie rock",
+    city: "Chattogram",
+    description: "Four-piece indie rock band writing Bangla lyrics about city life. Recording a first EP.",
+    status: "Looking for a bassist",
+    statusTone: "amber",
+    tone: "violet",
+    photoCaption: "rehearsal room",
+  },
+  {
+    slug: "shonar-tori",
+    name: "Shonar Tori",
+    monogram: "ST",
+    genre: "Bangla folk",
+    city: "Sylhet",
+    description: "Acoustic folk trio reworking Hason Raja and Radharaman songs for new audiences.",
+    status: "Gigging",
+    statusTone: "teal",
+    tone: "amber",
+    photoCaption: "open-air stage",
+  },
+];

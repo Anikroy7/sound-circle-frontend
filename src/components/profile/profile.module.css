@@ -1,0 +1,476 @@
+/* Public musician and band profiles. */
+
+/* ---------- Hero: cover, big avatar, name and actions ---------- */
+.musicianCover {
+  height: 260px;
+}
+
+.bandCover {
+  height: 300px;
+}
+
+.body {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 32px 72px;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  gap: 28px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.heroAvatar {
+  position: relative;
+  border: 5px solid var(--bg);
+}
+
+.heroText {
+  flex: 1 1 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 4px;
+}
+
+.nameRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.name {
+  font-size: 40px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 4px;
+}
+
+.heroChip {
+  height: 44px;
+  border-radius: 12px;
+}
+
+.metaRow {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 15px;
+}
+
+.instrument {
+  color: var(--teal-soft);
+  font-weight: 600;
+}
+
+/* Sits beside the avatar, which is pulled up over the cover (168px avatar + 28px gap). */
+.breadcrumb {
+  font-size: 13px;
+  padding: 14px 0 14px 196px;
+}
+
+.bandHeroRule {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.tabs {
+  display: flex;
+  gap: 28px;
+  border-bottom: 1px solid var(--line-soft);
+  margin: 28px 0;
+}
+
+.tab {
+  height: 44px;
+  padding: 0 4px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--text-muted);
+  font: 600 15px var(--font-body);
+  cursor: pointer;
+}
+
+.tab[aria-selected="true"] {
+  color: var(--text);
+  border-bottom-color: var(--teal);
+}
+
+.bandSplit {
+  margin-top: 28px;
+}
+
+/* ---------- Panels ---------- */
+.prose {
+  line-height: 1.7;
+  color: var(--text-soft);
+  text-wrap: pretty;
+}
+
+.factGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: 16px;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.factLabel {
+  font: 600 13px var(--font-body);
+  color: var(--text-muted);
+}
+
+.chipRow {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.skillMeter {
+  display: flex;
+  gap: 4px;
+}
+
+.skillMeter span {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--border-strong);
+}
+
+.skillMeter .skillOn {
+  background: var(--teal);
+}
+
+.panelHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.small {
+  font-size: 13px;
+}
+
+.prefGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 10px;
+}
+
+.pref {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.prefOn {
+  border-color: var(--chip-teal-border);
+  background: var(--chip-teal-bg);
+  color: var(--teal-soft);
+}
+
+.prefMark {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--border-hover);
+  color: var(--teal-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.prefOn .prefMark {
+  background: var(--teal);
+}
+
+/* ---------- Tracks, videos and photos ---------- */
+.track {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 12px;
+  flex-wrap: wrap;
+}
+
+.trackPlay {
+  width: 44px;
+}
+
+.trackText {
+  flex: 1 1 180px;
+  min-width: 0;
+  font-size: 15px;
+}
+
+.trackWave {
+  flex: 2 1 220px;
+  height: 36px;
+}
+
+.trackLength {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mediaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 16px;
+}
+
+.video {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.video:hover {
+  color: var(--text);
+}
+
+.videoThumb {
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoPlay {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: var(--overlay);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoBadge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: var(--overlay);
+  border-color: transparent;
+  font-size: 12px;
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  gap: 12px;
+}
+
+.photo {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+/* ---------- Members ---------- */
+.memberGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  gap: 12px;
+}
+
+.member {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--line-soft);
+  color: var(--text);
+}
+
+.member:hover {
+  color: var(--text);
+  border-color: var(--border-hover);
+}
+
+.memberText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+}
+
+.memberRole {
+  font-size: 13px;
+  color: var(--teal-soft);
+}
+
+.openRole {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px dashed var(--chip-violet-border);
+}
+
+.openRoleMark {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--chip-violet-bg);
+  color: var(--violet-soft);
+  font-size: 22px;
+  font-weight: 700;
+  flex: none;
+}
+
+/* ---------- Aside cards ---------- */
+.asideCard {
+  padding: 22px;
+  gap: 14px;
+}
+
+.definitionList {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.definitionList div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.definitionList dd {
+  margin: 0;
+  font-weight: 600;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.contactOpen {
+  color: var(--teal-soft);
+}
+
+.definitionList .contactGated {
+  font-weight: 400;
+}
+
+.block {
+  display: block;
+}
+
+.linkRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.showList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.datedShow {
+  display: flex;
+  gap: 12px;
+}
+
+.dateBadge {
+  width: 48px;
+  flex: none;
+  text-align: center;
+  padding: 6px 0;
+  border-radius: 10px;
+  background: var(--surface-2);
+  font-size: 16px;
+}
+
+.dateMonth {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.contactNote {
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 12px;
+}
+
+.pastBand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.pastBand:hover {
+  color: var(--text);
+}
+
+.emptyNote {
+  padding: 12px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  .body {
+    padding: 0 16px 56px;
+  }
+
+  .name {
+    font-size: 32px;
+  }
+
+  /* The avatar stacks above the name here and would cover it; the mobile design has no breadcrumb. */
+  .breadcrumb {
+    display: none;
+  }
+}

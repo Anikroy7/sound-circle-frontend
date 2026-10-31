@@ -1,0 +1,102 @@
+import type { ManagedBand } from "@/types/band";
+
+export const managedBand: ManagedBand = {
+  slug: "monsoon-theory",
+  name: "Monsoon Theory",
+  monogram: "MT",
+  tone: "violet",
+  openRoles: ["Drums", "Bass"],
+  members: [
+    {
+      slug: "tanvir-ahmed",
+      name: "Tanvir Ahmed",
+      initials: "TA",
+      tone: "teal",
+      role: "Lead guitar",
+      isOwner: true,
+      permission: { label: "Owner", tone: "violet" },
+      joined: "Created 2 Oct",
+    },
+    {
+      slug: "priya-chowdhury",
+      name: "Priya Chowdhury",
+      initials: "PC",
+      tone: "rose",
+      role: "Vocals",
+      isOwner: false,
+      permission: { label: "Member", tone: "muted" },
+      joined: "9 Oct",
+    },
+    {
+      slug: "sadia-islam",
+      name: "Sadia Islam",
+      initials: "SI",
+      tone: "blue",
+      role: "Keyboard",
+      isOwner: false,
+      permission: { label: "Member", tone: "muted" },
+      joined: "Today",
+    },
+  ],
+  joinRequests: [
+    {
+      slug: "tahmid-islam",
+      name: "Tahmid Islam",
+      initials: "TI",
+      tone: "teal",
+      role: "Bass",
+      note: "Saw your post, I live in Pallabi and love prog.",
+      when: "3 hours ago",
+    },
+    {
+      slug: "mahin-chowdhury",
+      name: "Mahin Chowdhury",
+      initials: "MC",
+      tone: "amber",
+      role: "Drums",
+      note: "Beginner but practising daily, happy to audition.",
+      when: "Yesterday",
+    },
+  ],
+  sentInvitations: [
+    {
+      slug: "rafiq-hossain",
+      name: "Rafiq Hossain",
+      initials: "RH",
+      tone: "amber",
+      role: "Drums",
+      meta: "expires in 12 days",
+      status: { label: "Pending", tone: "amber" },
+      action: "Withdraw",
+    },
+    {
+      slug: "arnob-das",
+      name: "Arnob Das",
+      initials: "AD",
+      tone: "rose",
+      role: "Bass",
+      meta: "yesterday",
+      status: { label: "Declined", tone: "rose" },
+      action: "Dismiss",
+    },
+    {
+      slug: "nafis-karim",
+      name: "Nafis Karim",
+      initials: "NK",
+      tone: "violet",
+      role: "Drums",
+      meta: "no reply in 14 days",
+      status: { label: "Expired", tone: "muted" },
+      action: "Resend",
+    },
+  ],
+  details: {
+    genre: "Progressive rock",
+    area: "Mirpur, Dhaka",
+    status: "Forming · recruiting",
+    description:
+      "Prog rock from Mirpur with Bangla lyrics, long-form songs and a lot of keyboard. Influenced by Aurthohin-era riffs and Porcupine Tree. We rehearse Friday afternoons near Mirpur 10 and aim to play our first show in January.",
+  },
+};
+
+export const bandStatusOptions = ["Forming · recruiting", "Active · gigging", "On a break"];

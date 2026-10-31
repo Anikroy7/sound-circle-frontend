@@ -1,0 +1,921 @@
+/* ---------- Shared section frame ---------- */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.sectionStack {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.sectionTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionTitle {
+  font-size: 34px;
+}
+
+.sectionLink {
+  font-weight: 600;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+}
+
+.heroRings {
+  position: absolute;
+  right: -260px;
+  top: -300px;
+  pointer-events: none;
+}
+
+.heroStaff {
+  position: absolute;
+  left: 0;
+  top: 150px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.heroGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(480px, 100%), 1fr));
+  gap: 48px;
+  align-items: center;
+  padding-top: 72px;
+  padding-bottom: 64px;
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heroBadge {
+  align-self: flex-start;
+  gap: 10px;
+}
+
+.heroTitle {
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 1;
+  font-weight: 800;
+}
+
+.heroAccent {
+  color: var(--teal);
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.heroTitleBars {
+  margin-bottom: 10px;
+}
+
+.heroLead {
+  font-size: 19px;
+  line-height: 1.6;
+  max-width: 560px;
+  text-wrap: pretty;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  flex-wrap: wrap;
+  max-width: 600px;
+  background: var(--glass);
+}
+
+.searchField {
+  flex: 1 1 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 6px;
+}
+
+.searchLabel {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.searchSelect {
+  height: 40px;
+}
+
+.searchSubmit {
+  align-self: flex-end;
+  margin: 0 4px 4px;
+}
+
+.heroVisual {
+  position: relative;
+  min-height: 560px;
+}
+
+.vinyl {
+  position: absolute;
+  right: -20px;
+  top: 10px;
+  width: 380px;
+  height: 380px;
+}
+
+/* Records and the tonearm are physical objects, so they keep their literal colours in both themes. */
+.vinylDisc {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: repeating-radial-gradient(circle at center, #0e0f14 0 2px, #191b22 2px 3px);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px #262a35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: spin 9s linear infinite;
+}
+
+.vinylSheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: conic-gradient(
+    from 30deg,
+    transparent 0 40deg,
+    rgba(255, 255, 255, 0.07) 55deg,
+    transparent 70deg 210deg,
+    rgba(255, 255, 255, 0.05) 225deg,
+    transparent 240deg
+  );
+}
+
+.vinylLabel {
+  width: 132px;
+  height: 132px;
+  border-radius: 999px;
+  background: var(--teal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  position: relative;
+  color: var(--teal-ink);
+}
+
+.vinylBrand {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.vinylSide {
+  font: 600 9px var(--font-body);
+  letter-spacing: 0.14em;
+}
+
+.vinylHole {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--bg);
+}
+
+.tonearm {
+  position: absolute;
+  right: -36px;
+  top: -30px;
+}
+
+.spotlightCard {
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0 24px 60px var(--shadow);
+}
+
+.spotlightPrimary {
+  left: 0;
+  top: 40px;
+  width: 210px;
+}
+
+.spotlightSecondary {
+  left: 150px;
+  top: 300px;
+  width: 200px;
+}
+
+.spotlightPrimary .spotlightPhoto {
+  height: 200px;
+}
+
+.spotlightSecondary .spotlightPhoto {
+  height: 150px;
+}
+
+.spotlightInitials {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 52px;
+  font-weight: 800;
+  opacity: 0.35;
+}
+
+.photoCaption {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  background: var(--overlay);
+  border-color: transparent;
+  font-size: 11px;
+}
+
+.spotlightMeta {
+  padding: 12px 14px;
+}
+
+.spotlightName {
+  font-size: 14px;
+}
+
+.smallMeta {
+  font-size: 12px;
+}
+
+.nowPlaying {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 330px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--glass-strong);
+  border-color: var(--border-accent);
+  box-shadow: 0 24px 60px var(--shadow);
+}
+
+.nowPlayingTop {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.pulseWrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex: none;
+}
+
+.pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 2px solid var(--teal);
+  animation: ring 2.4s ease-out infinite;
+}
+
+.pulseButton {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+.nowPlayingText {
+  flex: 1;
+  min-width: 0;
+}
+
+.nowPlayingTitle {
+  display: block;
+  font-size: 14px;
+}
+
+.nowPlayingLabel {
+  font-size: 10px;
+}
+
+.timeRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Genre ticker ---------- */
+.ticker {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-raised);
+  padding: 18px 0;
+  overflow: hidden;
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+.tickerWord {
+  font-size: 30px;
+  font-weight: 800;
+  padding: 0 22px;
+  white-space: nowrap;
+}
+
+.tickerWordOutline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ticker-outline);
+}
+
+.tickerStar {
+  color: var(--ticker-star);
+  font-size: 22px;
+  align-self: center;
+}
+
+/* ---------- Browse ---------- */
+.browse {
+  padding-top: 64px;
+  padding-bottom: 32px;
+}
+
+.instrumentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
+  gap: 12px;
+}
+
+.instrumentTile {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--text);
+}
+
+.instrumentTile:hover {
+  color: var(--text);
+}
+
+.instrumentIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instrumentName {
+  font-weight: 600;
+}
+
+.filterGroups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  gap: 24px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filterTitle {
+  font-size: 14px;
+}
+
+.chipList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Featured musicians ---------- */
+.featured {
+  padding-top: 48px;
+  padding-bottom: 24px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 20px;
+}
+
+.musicianCard {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.musicianPhoto {
+  height: 210px;
+}
+
+.musicianInitials {
+  position: absolute;
+  inset: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  font-weight: 800;
+  opacity: 0.4;
+}
+
+.availability {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--overlay);
+}
+
+.samplePlayer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: var(--overlay);
+}
+
+.samplePlay {
+  width: 34px;
+  height: 34px;
+}
+
+.sampleWave {
+  flex: 1;
+  height: 24px;
+}
+
+.sampleLength {
+  font-size: 11px;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.musicianBody {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.cardName {
+  font-size: 19px;
+}
+
+.musicianInstrument {
+  color: var(--teal-soft);
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.chipRow {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.metaRow {
+  font-size: 13px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.cardActions > * {
+  flex: 1;
+}
+
+/* ---------- How it works ---------- */
+.howItWorks {
+  padding-top: 72px;
+  padding-bottom: 72px;
+  gap: 36px;
+}
+
+.centeredHead {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.centeredTitle {
+  font-size: 38px;
+}
+
+.centeredLead {
+  max-width: 520px;
+}
+
+.stepsWrap {
+  position: relative;
+}
+
+.stepsWave {
+  position: absolute;
+  left: 0;
+  top: 34px;
+  opacity: 0.55;
+}
+
+.steps {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 20px;
+}
+
+.step {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stepTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stepNumber {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 2px solid var(--teal);
+  color: var(--teal-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.timecode {
+  font: 500 13px var(--font-mono);
+}
+
+.stepTitle {
+  font-size: 22px;
+}
+
+.stepBody {
+  line-height: 1.6;
+}
+
+/* ---------- Trending bands ---------- */
+.bandsBand {
+  background: var(--bg-raised);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.bandsInner {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+.bandGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+  gap: 20px;
+}
+
+.bandCard {
+  overflow: hidden;
+}
+
+.bandPhoto {
+  height: 170px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 14px;
+}
+
+.bandPhotoCaption {
+  background: var(--overlay);
+  border-color: transparent;
+  font-size: 12px;
+}
+
+.listenButton {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--overlay);
+  color: var(--text);
+  font-size: 13px;
+}
+
+.bandBody {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bandIdentity {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.bandRecord {
+  width: 56px;
+  height: 56px;
+  background: repeating-radial-gradient(circle, #15171d 0 2px, #22252e 2px 3px);
+  margin-top: -48px;
+  border: 3px solid var(--surface);
+  position: relative;
+}
+
+.bandMonogram {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+.bandNameGroup {
+  flex: 1;
+}
+
+.bandMeta {
+  font-size: 13px;
+}
+
+.bandDescription {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.bandFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Recently joined ---------- */
+.recent {
+  padding-top: 64px;
+  padding-bottom: 64px;
+  gap: 24px;
+}
+
+.recentTitle {
+  font-size: 30px;
+}
+
+.recentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 12px;
+}
+
+.recentTile {
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--text);
+}
+
+.recentTile:hover {
+  color: var(--text);
+}
+
+.recentAvatar {
+  width: 44px;
+  height: 44px;
+}
+
+.recentText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.recentName {
+  font-size: 14px;
+}
+
+.recentRole {
+  font-size: 13px;
+}
+
+/* ---------- Call to action ---------- */
+.ctaSection {
+  padding-top: 8px;
+  padding-bottom: 80px;
+}
+
+.cta {
+  position: relative;
+  overflow: hidden;
+  padding: 56px 48px;
+  background: var(--cta-bg);
+  border-color: var(--cta-border);
+}
+
+.ctaWave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  align-items: flex-end;
+  gap: 4px;
+  opacity: 0.22;
+  padding: 0 8px;
+}
+
+.ctaContent {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ctaCopy {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ctaLabel {
+  color: var(--violet-soft);
+}
+
+.ctaTitle {
+  font-size: 38px;
+  line-height: 1.08;
+}
+
+.ctaLead {
+  font-size: 17px;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg-sunken);
+}
+
+.footerWave {
+  height: 36px;
+  align-items: flex-end;
+  opacity: 0.35;
+  padding: 0 2px;
+}
+
+.footerInner {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 36px;
+  padding-bottom: 40px;
+}
+
+.footerBrand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footerName {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.footerCopy {
+  font-size: 13px;
+}
+
+.footerNav {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footerNav a {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.footerNav a:hover {
+  color: var(--text);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 760px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .heroGrid {
+    padding-top: 48px;
+  }
+
+  .vinyl {
+    display: none;
+  }
+
+  /* The floating collage would overlap itself in one narrow column, so it stacks instead. */
+  .heroVisual {
+    min-height: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .spotlightCard,
+  .nowPlaying {
+    position: static;
+  }
+
+  .spotlightPrimary,
+  .spotlightSecondary {
+    width: calc(50% - 8px);
+  }
+
+  .nowPlaying {
+    width: 100%;
+  }
+
+  .cta {
+    padding: 36px 20px;
+  }
+
+  .ctaTitle,
+  .centeredTitle {
+    font-size: 30px;
+  }
+}

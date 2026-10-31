@@ -1,0 +1,511 @@
+/* Band owner screens: create a band (four steps) and manage a band. */
+
+.small {
+  font-size: 13px;
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.actionsRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.actionsEnd {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.required {
+  color: var(--danger-text);
+}
+
+.personLink {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ---------- Step indicator ---------- */
+.steps {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stepItem {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.stepItem:not(:last-child)::after {
+  content: "";
+  width: 40px;
+  height: 1.5px;
+  background: var(--border-strong);
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font: 600 14px var(--font-body);
+}
+
+.stepNumber {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--border-strong);
+  font-size: 13px;
+}
+
+.stepDone {
+  color: var(--teal-soft);
+}
+
+.stepDone .stepNumber {
+  border-color: var(--teal);
+}
+
+.stepCurrent {
+  color: var(--text);
+}
+
+.stepCurrent .stepNumber {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--teal-ink);
+}
+
+/* ---------- Create: step card ---------- */
+.stepCard {
+  flex: 999 1 600px;
+  min-width: 0;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.stepTitle {
+  font-size: 24px;
+}
+
+.stepLead {
+  margin-top: -10px;
+}
+
+.segments {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.segment {
+  flex: 1 1 200px;
+  text-align: left;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: var(--inset);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.segment[aria-pressed="true"] {
+  border-color: var(--teal);
+  background: var(--chip-teal-bg);
+}
+
+.logoRow {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.logoField {
+  flex: none;
+}
+
+.changeLogo {
+  padding: 0;
+}
+
+.logoFields {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.roleList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.roleRow {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+}
+
+.roleAbbr {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2);
+  color: var(--violet-soft);
+  font-weight: 700;
+}
+
+.roleName {
+  flex: 1 1 140px;
+}
+
+.roleWho {
+  min-width: 150px;
+}
+
+.alignStart {
+  align-self: flex-start;
+}
+
+.searchRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  flex: 1 1 300px;
+}
+
+.narrowSelect {
+  width: 170px;
+}
+
+.candidate {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.candidateText {
+  flex: 1 1 220px;
+}
+
+.subhead {
+  font-size: 14px;
+}
+
+.inviteRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+}
+
+.inviteText {
+  flex: 1 1 200px;
+  font-size: 14px;
+}
+
+.inviteMeta {
+  min-width: 130px;
+}
+
+.published {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 24px 0;
+}
+
+.publishedTitle {
+  font-size: 28px;
+}
+
+.publishedText {
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+.centerRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ---------- Create: aside ---------- */
+.previewCard {
+  overflow: hidden;
+}
+
+.previewCover {
+  height: 96px;
+}
+
+.previewBody {
+  padding: 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.previewLogo {
+  position: relative;
+  margin-top: -32px;
+  border: 3px solid var(--surface);
+}
+
+.previewName {
+  font-size: 20px;
+}
+
+.previewCaption {
+  font-size: 12px;
+}
+
+.chipRow {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.checklistCard {
+  padding: 20px;
+  gap: 12px;
+}
+
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.checklist li {
+  display: flex;
+  gap: 10px;
+}
+
+.markDone {
+  color: var(--teal-soft);
+}
+
+.markMissing {
+  color: var(--danger-text);
+}
+
+/* ---------- Manage ---------- */
+.manageHead {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.manageTitleGroup {
+  flex: 1 1 300px;
+}
+
+.manageTitle {
+  margin-top: 4px;
+  font-size: 34px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ownerChip {
+  font-family: var(--font-body);
+}
+
+.settingsNav {
+  flex: 1 1 200px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: sticky;
+  top: 16px;
+}
+
+.settingsLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text-soft);
+  font: 500 14px var(--font-body);
+}
+
+.settingsLink:hover,
+.settingsLinkActive {
+  background: var(--surface-hover);
+  color: var(--text-strong);
+}
+
+.settingsLinkActive {
+  box-shadow: inset 3px 0 0 var(--teal);
+}
+
+.settingsDanger,
+.settingsDanger:hover {
+  color: var(--danger-text);
+}
+
+.countChip {
+  height: 20px;
+  padding: 0 7px;
+  font-size: 11px;
+}
+
+.manageMain {
+  flex: 999 1 640px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+}
+
+.table th {
+  font: 600 12px var(--font-body);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.table .alignEnd {
+  text-align: right;
+}
+
+.memberCell {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.roleSelect {
+  height: 36px;
+  width: 170px;
+  font-size: 14px;
+}
+
+.request {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.requestText {
+  flex: 1 1 260px;
+}
+
+.requestRole {
+  color: var(--teal-soft);
+}
+
+.requestNote {
+  margin-top: 2px;
+}
+
+.buttonPair {
+  display: flex;
+  gap: 8px;
+}
+
+.dangerZone {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border-color: var(--danger-border);
+}
+
+.dangerTitle {
+  color: var(--danger-text);
+}
+
+.dangerText {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .stepCard {
+    padding: 20px;
+  }
+
+  .settingsNav {
+    position: static;
+    max-width: none;
+  }
+}

@@ -1,0 +1,229 @@
+/* ---------- Search bar and active filters ---------- */
+.searchRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.searchField {
+  flex: 1 1 420px;
+  position: relative;
+  display: block;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  color: var(--text-muted);
+  display: flex;
+}
+
+.searchInput {
+  height: 52px;
+  padding-left: 46px;
+  font-size: 16px;
+}
+
+.sortField {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.sortSelect {
+  width: 200px;
+  height: 52px;
+}
+
+.activeFilters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 13px;
+}
+
+.removeFilter {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.clearAll {
+  height: 28px;
+  padding: 0 8px;
+  font-size: 13px;
+  color: var(--teal-soft);
+}
+
+/* ---------- Filter sidebar ---------- */
+.filters {
+  flex: 1 1 260px;
+  max-width: 300px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.filtersHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.filtersTitle {
+  font-size: 18px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chipList {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Results ---------- */
+.results {
+  flex: 999 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.resultCount {
+  font-size: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 18px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cardTop {
+  padding: 18px 18px 0;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.identity {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  display: block;
+  font-size: 18px;
+}
+
+.instrument {
+  color: var(--teal-soft);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  font-size: 13px;
+}
+
+.cardBody {
+  flex: 1;
+  padding: 14px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stats {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  font-size: 13px;
+}
+
+.stats dd {
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+
+.cardRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sampleButton {
+  height: 32px;
+  padding: 0 10px 0 4px;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--teal-soft);
+}
+
+.sampleIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--teal);
+  color: var(--teal-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.cardActions > * {
+  flex: 1;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding-top: 12px;
+}
+
+@media (max-width: 760px) {
+  .filters {
+    max-width: none;
+  }
+
+  .sortField,
+  .sortSelect {
+    width: 100%;
+  }
+}

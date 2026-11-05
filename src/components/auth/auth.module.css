@@ -165,6 +165,58 @@
   font-weight: 400;
 }
 
+/* ---------- Location picker ---------- */
+.locationBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.stepLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepNo {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--chip-teal-bg);
+  border: 1px solid var(--chip-teal-border);
+  color: var(--teal-soft);
+  font: 700 11px var(--font-body);
+}
+
+.locationSummary {
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.summaryText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.pickChip button {
+  border: 0;
+  padding: 0 0 0 2px;
+  background: none;
+  color: inherit;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
 /* ---------- Onboarding ---------- */
 .progress {
   display: flex;

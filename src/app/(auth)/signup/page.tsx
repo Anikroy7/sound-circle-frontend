@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SocialSignInButton } from "@/components/auth/auth-parts";
 import styles from "@/components/auth/auth.module.css";
+import { LocationPicker } from "@/components/auth/location-picker";
 import { AlertCircleIcon } from "@/components/ui/icons";
 import { signupDraft } from "@/demo-data/onboarding";
 import { routes } from "@/lib/routes";
@@ -60,6 +61,7 @@ export default function SignupPage(): React.JSX.Element {
             Good password. At least 8 characters with a number.
           </span>
         </label>
+        <LocationPicker />
         <label className="check">
           <input type="checkbox" name="terms" defaultChecked />
           <span>

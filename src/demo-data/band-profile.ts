@@ -5,7 +5,6 @@ export const bandProfile: BandProfile = {
   name: "Neel Akash Collective",
   monogram: "NA",
   tone: "teal",
-  coverCaption: "the band live at Jatra Biroti, Banani",
   status: { label: "Existing band · Gigging", tone: "teal" },
   tags: ["Folk fusion", "Baul", "Electronica", "Dhanmondi, Dhaka", "Formed 2023"],
   about:

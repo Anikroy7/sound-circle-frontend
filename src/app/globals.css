@@ -408,7 +408,9 @@ textarea.input {
   cursor: pointer;
 }
 
-.toggle-chip[aria-pressed="true"] {
+/* aria-checked: the same chip used as a radio in a radiogroup. */
+.toggle-chip[aria-pressed="true"],
+.toggle-chip[aria-checked="true"] {
   background: var(--chip-teal-bg);
   border-color: var(--teal);
   color: var(--teal-soft);

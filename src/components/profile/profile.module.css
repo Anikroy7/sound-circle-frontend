@@ -1,18 +1,10 @@
 /* Public musician and band profiles. */
 
-/* ---------- Hero: cover, big avatar, name and actions ---------- */
-.musicianCover {
-  height: 260px;
-}
-
-.bandCover {
-  height: 300px;
-}
-
+/* ---------- Hero: big avatar, name and actions ---------- */
 .body {
   max-width: 1360px;
   margin: 0 auto;
-  padding: 0 32px 72px;
+  padding: 28px 32px 72px;
 }
 
 .hero {
@@ -25,7 +17,6 @@
 
 .heroAvatar {
   position: relative;
-  border: 5px solid var(--bg);
 }
 
 .heroText {
@@ -71,10 +62,9 @@
   font-weight: 600;
 }
 
-/* Sits beside the avatar, which is pulled up over the cover (168px avatar + 28px gap). */
 .breadcrumb {
   font-size: 13px;
-  padding: 14px 0 14px 196px;
+  padding-bottom: 20px;
 }
 
 .bandHeroRule {
@@ -238,9 +228,10 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* auto-fill keeps empty tracks, so one video stays one column wide instead of filling the panel. */
 .mediaGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 16px;
 }
 
@@ -284,9 +275,10 @@
   font-size: 12px;
 }
 
+/* auto-fill: one photo stays one column wide instead of filling the panel. */
 .photoGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
   gap: 12px;
 }
 
@@ -462,15 +454,280 @@
 
 @media (max-width: 760px) {
   .body {
-    padding: 0 16px 56px;
+    padding: 20px 16px 56px;
   }
 
   .name {
     font-size: 32px;
   }
+}
 
-  /* The avatar stacks above the name here and would cover it; the mobile design has no breadcrumb. */
-  .breadcrumb {
-    display: none;
+/* ---------- My profile (real data from /profiles/me) ---------- */
+.loadState {
+  max-width: 640px;
+  margin: 48px auto;
+  padding: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.notice {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.profileSplit {
+  margin-top: 28px;
+}
+
+.panelTools {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.bio {
+  white-space: pre-line;
+  margin: 0;
+}
+
+.instrumentList,
+.audioList,
+.slotList,
+.bandList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.instrumentList,
+.audioList {
+  gap: 10px;
+}
+
+.instrumentRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 15px;
+}
+
+.skill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.skill .skillMeter {
+  width: 96px;
+}
+
+.audioRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+/* Title on one line, "MP3 · 2:48" under it. */
+.audioRow .trackText {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.trackTitle {
+  overflow-wrap: anywhere;
+}
+
+.locationList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.audioPlayer {
+  flex: 1 1 280px;
+  max-width: 100%;
+  height: 40px;
+}
+
+.videoStill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overStill {
+  position: relative;
+}
+
+
+.photoLink {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.photoLink img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.photoLink:hover img {
+  transform: scale(1.04);
+}
+
+.thumbGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+}
+
+.thumbGrid .photoLink {
+  border-radius: 8px;
+}
+
+.breakAll {
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.slotList {
+  gap: 10px;
+  font-size: 14px;
+}
+
+.slot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.bandList {
+  gap: 18px;
+}
+
+.bandEntry {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photoLink img {
+    transition: none;
+  }
+}
+
+/* Two small video tiles per row in the sidebar's band entries. */
+.videoGridCompact {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr));
+  gap: 10px;
+}
+
+.videoGridCompact .videoThumb {
+  border-radius: 10px;
+}
+
+.videoPlaySmall {
+  width: 36px;
+  height: 36px;
+}
+
+.editLink,
+.inlineLink {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--teal-soft);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.editLink {
+  font-size: 13px;
+}
+
+.editLink:hover,
+.inlineLink:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Section editor dialog ---------- */
+.editor {
+  width: min(720px, calc(100% - 32px));
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 24px 64px var(--shadow);
+}
+
+.editor::backdrop {
+  background: rgba(8, 12, 20, 0.55);
+}
+
+.editorHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.editorHead p {
+  margin: 4px 0 0;
+}
+
+.editorClose {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.editorClose:hover {
+  background: var(--surface-2-hover);
+}
+
+@media (max-width: 560px) {
+  .editor {
+    padding: 18px 16px;
   }
 }

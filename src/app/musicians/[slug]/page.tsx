@@ -15,7 +15,7 @@ export function generateStaticParams(): { slug: string }[] {
 export default function MusicianPage(): React.JSX.Element {
   return (
     <>
-      <SiteHeader activeHref={routes.musicians} viewer={currentViewer} overlay />
+      <SiteHeader activeHref={routes.musicians} viewer={currentViewer} />
       <MusicianProfileView musician={musicianProfile} />
     </>
   );

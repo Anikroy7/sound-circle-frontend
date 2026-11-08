@@ -21,7 +21,3 @@ export interface LocationNode {
   distance_km?: number;
 }
 
-/** A picked location, with the ids above it, so a wider pick can replace the narrower ones inside it. */
-export interface PickedLocation extends LocationNode {
-  ancestors: number[];
-}

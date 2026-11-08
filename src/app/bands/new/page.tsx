@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { CreateBandShell } from "@/components/bands/create-band-shell";
-import { DetailsStep } from "@/components/bands/create-band-steps";
+import { BandWizard } from "@/components/bands/create/band-wizard";
+import { SiteHeader } from "@/components/layout/site-header";
+import { currentViewer } from "@/demo-data/session";
+import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = { title: "Create a band" };
 
-export default function CreateBandDetailsStepPage(): React.JSX.Element {
+/** The draft lives behind the signed-in API, so the page is a static shell and the wizard loads it client-side. */
+export default function CreateBandInfoPage(): React.JSX.Element {
   return (
-    <CreateBandShell step="details">
-      <DetailsStep />
-    </CreateBandShell>
+    <>
+      <SiteHeader activeHref={routes.createBand} viewer={currentViewer} />
+      <BandWizard step="details" />
+    </>
   );
 }

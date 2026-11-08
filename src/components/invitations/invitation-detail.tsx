@@ -2,7 +2,6 @@ import Link from "next/link";
 import styles from "@/components/invitations/invitations.module.css";
 import { Avatar } from "@/components/ui/avatar";
 import { routes } from "@/lib/routes";
-import { tones } from "@/lib/tones";
 import type { ReceivedInvitation } from "@/types/invitation";
 
 /** The open invitation: who is asking, for which role, and the accept / decline decision. */
@@ -15,7 +14,6 @@ export function InvitationDetail({ invitation }: { invitation: ReceivedInvitatio
 
   return (
     <section className={`card ${styles.detail}`} aria-label={`Invitation from ${invitation.band}`}>
-      <div className={`photo-placeholder ${styles.detailCover}`} style={{ backgroundColor: tones[invitation.tone].tint }} />
       <div className={styles.detailBody}>
         <div className={styles.detailHead}>
           <Avatar

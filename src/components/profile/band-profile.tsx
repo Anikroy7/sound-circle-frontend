@@ -1,7 +1,7 @@
 import Link from "next/link";
 import page from "@/components/layout/page.module.css";
 import { TrackRow, VideoGrid } from "@/components/profile/media";
-import { ProfileCover, ProfileHero } from "@/components/profile/profile-hero";
+import { ProfileHero } from "@/components/profile/profile-hero";
 import styles from "@/components/profile/profile.module.css";
 import { Avatar } from "@/components/ui/avatar";
 import { routes } from "@/lib/routes";
@@ -12,7 +12,6 @@ import type { BandProfile } from "@/types/band";
 export function BandProfileView({ band }: { band: BandProfile }): React.JSX.Element {
   return (
     <>
-      <ProfileCover tone={band.tone} caption={band.coverCaption} className={styles.bandCover} />
       <main className={styles.body}>
         <ProfileHero
           initials={band.monogram}
@@ -43,7 +42,6 @@ export function BandProfileView({ band }: { band: BandProfile }): React.JSX.Elem
               </span>
             </>
           }
-          overlap={72}
           className={styles.bandHeroRule}
         />
 

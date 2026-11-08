@@ -1,0 +1,628 @@
+/* Profile setup wizard. Colours, buttons, chips and inputs come from the global primitives. */
+
+/* ---------- Progress ---------- */
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progressTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.stepCount {
+  color: var(--teal-soft);
+}
+
+.segments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+}
+
+.segment {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+}
+
+.segmentDone {
+  background: var(--teal);
+}
+
+.segmentCurrent {
+  background: var(--teal-soft);
+  box-shadow: 0 0 0 2px var(--teal-glow);
+}
+
+/* Completed steps are links back; give them a hit area taller than the 6px bar. */
+.segmentLink {
+  display: block;
+  padding: 6px 0;
+  margin: -6px 0;
+  border-radius: 4px;
+}
+
+.segmentLink:hover .segment {
+  background: var(--teal-soft);
+}
+
+.segmentLink:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* ---------- Step frame ---------- */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  font-size: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.counter {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.counterRight {
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+}
+
+.actionsEnd {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.loading {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+/* ---------- Chips ---------- */
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Instruments ---------- */
+.skillRows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skillRow {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skillRowHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.removeButton {
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font: 500 13px var(--font-body);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.removeButton:hover {
+  color: var(--danger-text);
+}
+
+/* ---------- Choice cards (radio and checkbox) ---------- */
+.choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 10px;
+}
+
+.choice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.choice:hover {
+  border-color: var(--border-hover);
+}
+
+.choice:has(input:checked) {
+  border-color: var(--teal);
+  background: var(--chip-teal-bg);
+  color: var(--text);
+}
+
+.choice:has(input:focus-visible) {
+  box-shadow: 0 0 0 3px var(--teal-glow);
+}
+
+.choice input {
+  margin: 2px 0 0;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  accent-color: var(--teal);
+}
+
+.choiceText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.choiceText strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ---------- Availability ---------- */
+.slot {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.slotGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: end;
+}
+
+.timeRange {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.addButton {
+  align-self: flex-start;
+}
+
+/* ---------- Media ---------- */
+.dropzone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px dashed var(--border-strong);
+  background: var(--surface-2);
+}
+
+.queue {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.queueItem {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.queueHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.fileName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.photoGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(120px, 45%), 1fr));
+  gap: 10px;
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photoRemove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--overlay);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.photoRemove:hover,
+.photoRemove:focus-visible {
+  background: var(--danger-text);
+}
+
+/* "Remove / Keep" over a photo, in place of its × button. */
+.photoConfirm {
+  position: absolute;
+  inset: auto 6px 6px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.audioList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.audioItem {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.audioItem audio {
+  width: 100%;
+  height: 36px;
+}
+
+/* ---------- Video links ---------- */
+.linkRow {
+  display: flex;
+  gap: 8px;
+}
+
+.linkRow .input {
+  flex: 1;
+  min-width: 0;
+}
+
+.videoList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.videoItem {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.videoUrl {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Band experience ---------- */
+.bandCard {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bandHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.bandTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bandName {
+  font: 700 18px var(--font-display);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.bandButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.confirm {
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.bandForm {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-color: var(--teal);
+}
+
+/* ---------- Done ---------- */
+.done {
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.completion {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.completionLabel {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.centerRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 560px) {
+  .title {
+    font-size: 26px;
+  }
+
+  .slotGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .actionsEnd {
+    margin-left: 0;
+    flex-direction: column-reverse;
+  }
+
+  .actions :global(.btn) {
+    width: 100%;
+  }
+}
+
+/* Editing one section from the profile page: Cancel · Save changes, right-aligned. */
+.editActions {
+  justify-content: flex-end;
+  padding-top: 16px;
+}
+
+/* ---------- Profile photo (step 1, and the profile page) ---------- */
+.photoField {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.photoFieldHero {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.photoPreview {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+}
+
+.photoBusy {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--overlay);
+  font: 600 14px var(--font-body);
+  border-radius: 24%;
+}
+
+.photoControls {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.photoFieldHero .photoControls {
+  flex: none;
+}
+
+/* ---------- Location picker (step 1 and the profile page's editor; the signup page's design) ---------- */
+.locationBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.stepLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepNo {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--chip-teal-bg);
+  border: 1px solid var(--chip-teal-border);
+  color: var(--teal-soft);
+  font: 700 11px var(--font-body);
+}
+
+.locationSummary {
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.summaryText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.chipList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pickChip button {
+  border: 0;
+  padding: 0 0 0 2px;
+  background: none;
+  color: inherit;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.textButton {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--teal-soft);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}

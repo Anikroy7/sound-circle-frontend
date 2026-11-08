@@ -135,7 +135,8 @@
   gap: 4px;
 }
 
-.segment[aria-pressed="true"] {
+.segment[aria-pressed="true"],
+.segment[aria-checked="true"] {
   border-color: var(--teal);
   background: var(--chip-teal-bg);
 }
@@ -227,6 +228,11 @@
 
 .candidateText {
   flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .subhead {
@@ -280,12 +286,8 @@
   overflow: hidden;
 }
 
-.previewCover {
-  height: 96px;
-}
-
 .previewBody {
-  padding: 0 20px 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -293,8 +295,6 @@
 
 .previewLogo {
   position: relative;
-  margin-top: -32px;
-  border: 3px solid var(--surface);
 }
 
 .previewName {
@@ -508,4 +508,79 @@
     position: static;
     max-width: none;
   }
+}
+
+/* ---------- Band creation (real data) ---------- */
+/* A later step before the draft exists: shown, not clickable. */
+.stepLocked {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.loadError {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.membersEditor {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.memberSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.candidateList,
+.lineup {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.lineup {
+  gap: 8px;
+}
+
+.lineupRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.memberConfirm {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.externalRow {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.externalPhoto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.externalFields {
+  flex: 1 1 260px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 12px;
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import page from "@/components/layout/page.module.css";
 import { TrackRow, VideoGrid } from "@/components/profile/media";
-import { ProfileCover, ProfileHero } from "@/components/profile/profile-hero";
+import { ProfileHero } from "@/components/profile/profile-hero";
 import styles from "@/components/profile/profile.module.css";
 import { Avatar } from "@/components/ui/avatar";
 import { LockIcon } from "@/components/ui/icons";
@@ -17,7 +17,6 @@ const tabs = ["Overview", "Portfolio", "Bands & gigs"];
 export function MusicianProfileView({ musician }: { musician: MusicianProfile }): React.JSX.Element {
   return (
     <>
-      <ProfileCover tone={musician.tone} caption={musician.coverCaption} className={styles.musicianCover} />
       <main className={styles.body}>
         <nav aria-label="Breadcrumb" className={`muted ${styles.breadcrumb}`}>
           <Link href={routes.musicians}>Discover</Link> / Drummers / {musician.name}
@@ -44,12 +43,11 @@ export function MusicianProfileView({ musician }: { musician: MusicianProfile })
               <a className="btn btn-secondary" href="#contact">
                 Contact
               </a>
-              <Link className="btn btn-primary" href={routes.createBandStep.invite}>
+              <Link className="btn btn-primary" href={routes.createBandStep.members}>
                 Invite to Band
               </Link>
             </>
           }
-          overlap={96}
         />
 
         <div role="tablist" aria-label="Profile sections" className={styles.tabs}>
@@ -156,7 +154,7 @@ export function MusicianProfileView({ musician }: { musician: MusicianProfile })
               <button type="button" className="btn btn-secondary btn-block">
                 Send a message
               </button>
-              <Link className="btn btn-primary btn-block" href={routes.createBandStep.invite}>
+              <Link className="btn btn-primary btn-block" href={routes.createBandStep.members}>
                 Invite to Band
               </Link>
             </section>

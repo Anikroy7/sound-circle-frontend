@@ -4,15 +4,6 @@
   padding: 16px 20px 4px;
 }
 
-.overlay {
-  position: absolute;
-  inset: 0 0 auto;
-}
-
-.overlay .capsule {
-  background: var(--glass);
-}
-
 .capsule {
   max-width: 1320px;
   margin: 0 auto;

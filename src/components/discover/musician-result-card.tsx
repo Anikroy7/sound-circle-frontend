@@ -51,7 +51,7 @@ export function MusicianResultCard({ musician }: { musician: DiscoverResult }): 
           <Link className="btn btn-secondary btn-sm" href={routes.musician(musician.slug)}>
             View Profile
           </Link>
-          <Link className="btn btn-primary btn-sm" href={routes.createBandStep.invite}>
+          <Link className="btn btn-primary btn-sm" href={routes.createBandStep.members}>
             Invite to Band
           </Link>
         </div>

@@ -33,7 +33,6 @@ export interface BandProfile {
   name: string;
   monogram: string;
   tone: Tone;
-  coverCaption: string;
   status: Status;
   tags: string[];
   about: string;
@@ -75,33 +74,4 @@ export interface ManagedBand {
   joinRequests: JoinRequest[];
   sentInvitations: SentInvitation[];
   details: { genre: string; area: string; status: string; description: string };
-}
-
-export interface BandRole {
-  role: string;
-  /** Label on the preview card, e.g. "Keys" for Keyboard. */
-  short: string;
-  abbreviation: string;
-  status: Status;
-  who: string;
-}
-
-export interface InviteCandidate extends PersonRef {
-  meta: string;
-  invited: boolean;
-}
-
-export interface BandDraft {
-  name: string;
-  monogram: string;
-  tone: Tone;
-  genre: string;
-  city: string;
-  area: string;
-  stage: string;
-  description: string;
-  roles: BandRole[];
-  candidates: InviteCandidate[];
-  invitations: SentInvitation[];
-  checklist: { label: string; state: "done" | "missing" | "optional" }[];
 }

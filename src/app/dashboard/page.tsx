@@ -24,8 +24,8 @@ export default function DashboardPage(): React.JSX.Element {
             <p className="muted">{dashboard.summary}</p>
           </div>
           <div className={page.headActions}>
-            <Link className="btn btn-secondary" href={routes.musician(currentViewer.slug)}>
-              View my public profile
+            <Link className="btn btn-secondary" href={routes.myProfile}>
+              View my profile
             </Link>
             <Link className="btn btn-primary" href={routes.createBand}>
               Create a Band
@@ -63,7 +63,7 @@ export default function DashboardPage(): React.JSX.Element {
                   <Link className="btn btn-secondary btn-sm" href={routes.musician(musician.slug)}>
                     View Profile
                   </Link>
-                  <Link className="btn btn-primary btn-sm" href={routes.createBandStep.invite}>
+                  <Link className="btn btn-primary btn-sm" href={routes.createBandStep.members}>
                     Invite
                   </Link>
                 </div>

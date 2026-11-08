@@ -8,7 +8,6 @@ export const musicianProfile: MusicianProfile = {
   instruments: "Drums · Percussion",
   status: { label: "Looking for a band", tone: "teal" },
   facts: ["Mirpur 10, Dhaka", "10 years playing", "Member since March 2026"],
-  coverCaption: "Rafiq on stage at a Mirpur rooftop gig",
   about:
     "I've been drumming since my school band in Mirpur. Heavy on double-kick and odd time signatures, but I love a tight groove just as much. Played with Iron Tide for four years across Dhaka's underground circuit. Now looking for a committed prog or alt-rock band that wants to write originals and play live regularly. I own my own kit and have access to a rehearsal space near Mirpur 10.",
   genres: ["Metal", "Prog rock", "Alt rock"],

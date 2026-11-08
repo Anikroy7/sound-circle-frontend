@@ -5,7 +5,6 @@ export interface MusicianProfile extends PersonRef {
   instruments: string;
   status: Status;
   facts: string[];
-  coverCaption: string;
   about: string;
   genres: string[];
   /** 1–4, drawn as a four-step meter next to `skillLabel`. */

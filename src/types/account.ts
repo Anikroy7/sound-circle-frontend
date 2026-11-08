@@ -5,19 +5,3 @@ export interface Viewer extends PersonRef {
   unreadNotifications: number;
   newInvitations: number;
 }
-
-export interface OnboardingStep {
-  label: string;
-  href: string;
-}
-
-export interface ToggleOption {
-  label: string;
-  selected: boolean;
-}
-
-export interface PrivacySetting {
-  title: string;
-  hint: string;
-  options: string[];
-}

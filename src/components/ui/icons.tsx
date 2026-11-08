@@ -109,12 +109,3 @@ export function AlertCircleIcon({ size = 14, color = "currentColor" }: IconProps
   );
 }
 
-/** Generic mark for the "Continue with Google" button, as drawn in the design (not the Google logo). */
-export function SignInMarkIcon({ size = 18, color = "currentColor" }: IconProps): React.JSX.Element {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 12h8" />
-    </svg>
-  );
-}

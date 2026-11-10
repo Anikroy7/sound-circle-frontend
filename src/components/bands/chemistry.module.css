@@ -1,0 +1,455 @@
+/* The band membership experience: lineup, milestones, introductions, the welcome and the membership card. */
+
+/* ---------- Band chemistry (lineup) */
+
+.lineup {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(132px, 100%), 1fr));
+  gap: 10px;
+}
+
+.slot {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+  background: var(--inset);
+  min-width: 0;
+}
+
+.slotNeeded {
+  border: 1px dashed var(--violet);
+  background: var(--chip-violet-bg);
+}
+
+.slotHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--teal-soft);
+}
+
+.slotEmpty .slotHead {
+  color: var(--text-faint);
+}
+
+.slotNeeded .slotHead {
+  color: var(--violet-soft);
+}
+
+.slotCount {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1;
+  color: var(--text-strong);
+}
+
+.slotEmpty .slotCount {
+  color: var(--text-faint);
+}
+
+.slotLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+  min-height: 6px;
+}
+
+.dots span {
+  width: 14px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--teal);
+}
+
+.dots .dotNeeded {
+  background: transparent;
+  border: 1px dashed var(--violet);
+}
+
+.neededTag {
+  font: 600 11px var(--font-body);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--violet-soft);
+}
+
+.summary {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ---------- Milestones */
+
+.milestones {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.milestone {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.badge {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 16px var(--font-display);
+  color: var(--teal-ink);
+  background: linear-gradient(135deg, var(--teal), var(--violet));
+  box-shadow: 0 0 0 3px var(--chip-teal-bg);
+}
+
+.badgeLocked {
+  color: var(--text-faint);
+  background: transparent;
+  border: 1px dashed var(--border-strong);
+  box-shadow: none;
+}
+
+.milestoneText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.milestoneText strong {
+  color: var(--text-strong);
+}
+
+.locked strong {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.milestoneMeta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ---------- Meet the band (introductions) */
+
+.intros {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 12px;
+}
+
+.introCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+  background: var(--inset);
+}
+
+.introHead {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.introHead span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.introHead strong {
+  font-size: 15px;
+  color: var(--text-strong);
+}
+
+.introText {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-soft);
+  overflow-wrap: anywhere;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tags :global(.chip) {
+  height: 24px;
+  font-size: 12px;
+  padding: 0 9px;
+}
+
+/* ---------- Introduction form */
+
+.introForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chipPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ---------- Welcome */
+
+.welcome {
+  width: min(520px, calc(100% - 32px));
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--text);
+  overflow: hidden;
+}
+
+.welcome::backdrop {
+  background: rgba(9, 9, 11, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.welcomeStage {
+  position: relative;
+  padding: 40px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, var(--chip-teal-bg), transparent 60%),
+    radial-gradient(circle at 100% 100%, var(--chip-violet-bg), transparent 55%);
+}
+
+.pair {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.pair > :last-child {
+  margin-left: -18px;
+  box-shadow: 0 0 0 4px var(--surface);
+}
+
+.welcomeTitle {
+  font-size: 32px;
+  z-index: 1;
+}
+
+.welcomeLead {
+  color: var(--text-soft);
+  z-index: 1;
+}
+
+.welcomeStage :global(.btn) {
+  z-index: 1;
+}
+
+.introStep {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Falling notes and confetti; the global reduced-motion rule stops them. */
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.piece {
+  position: absolute;
+  top: -24px;
+  display: block;
+  opacity: 0;
+  animation: fall var(--duration) cubic-bezier(0.25, 0.6, 0.4, 1) var(--delay) 2 forwards;
+}
+
+.note {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.paper {
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+@keyframes fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift), 380px, 0) rotate(var(--spin));
+  }
+}
+
+/* ---------- Membership card */
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1.586;
+  border-radius: 20px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  color: #ececee;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.26), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.24), transparent 55%),
+    #111113;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  container-type: inline-size;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cardBand {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.cardBandName {
+  font: 700 17px var(--font-display);
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardKicker {
+  font: 600 10px var(--font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #93c5fd;
+}
+
+.cardWave {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  top: 46%;
+  height: 26px;
+  opacity: 0.25;
+}
+
+.cardBottom {
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+  position: relative;
+}
+
+.cardWho {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cardName {
+  font: 700 clamp(18px, 6cqi, 24px) var(--font-display);
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardRole {
+  font-size: 14px;
+  color: #c4b5fd;
+}
+
+.cardMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  font: 500 11px var(--font-mono);
+  letter-spacing: 0.08em;
+  color: #a1a1aa;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cardPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 0;
+}
+
+/* A panel's title row with something on the right (a count, a button). */
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}

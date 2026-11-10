@@ -1,32 +1,26 @@
 import Link from "next/link";
 import { HeaderAuth } from "@/components/layout/header-auth";
+import { PendingBadge } from "@/components/layout/pending-badge";
 import styles from "@/components/layout/site-header.module.css";
 import { Equalizer } from "@/components/ui/equalizer";
-import { BellIcon } from "@/components/ui/icons";
 import { LogoMark } from "@/components/ui/logo";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
-import { bandProfile } from "@/demo-data/band-profile";
 import { routes } from "@/lib/routes";
-import type { Viewer } from "@/types/account";
 
 interface SiteHeaderProps {
   /** Passed by the page rather than read from the URL, so the header stays a server component. */
   activeHref: string;
-  /** Demo notifications, shown only once `HeaderAuth` knows the visitor is signed in. The avatar is the real account's. */
-  viewer?: Viewer;
 }
 
-export function SiteHeader({ activeHref, viewer }: SiteHeaderProps): React.JSX.Element {
-  const navItems = [
-    { href: routes.home, label: "Home" },
-    { href: routes.musicians, label: "Discover Musicians" },
-    // There is no band directory design yet, so "Bands" opens the demo band, as in the design.
-    { href: routes.band(bandProfile.slug), label: "Bands" },
-    { href: routes.createBand, label: "Create a Band" },
-    { href: routes.invitations, label: "Invitations", badge: viewer?.newInvitations },
-    { href: routes.dashboard, label: "My Dashboard" },
-  ];
+const NAV_ITEMS = [
+  { href: routes.home, label: "Home" },
+  { href: routes.musicians, label: "Musicians" },
+  { href: routes.bands, label: "Bands" },
+  { href: routes.createBand, label: "Create a Band" },
+  { href: routes.dashboard, label: "Dashboard", pending: true },
+];
 
+export function SiteHeader({ activeHref }: SiteHeaderProps): React.JSX.Element {
   return (
     <header className={styles.header}>
       <div className={styles.capsule}>
@@ -35,7 +29,7 @@ export function SiteHeader({ activeHref, viewer }: SiteHeaderProps): React.JSX.E
           <span className={`display ${styles.brandName}`}>SoundCircle</span>
         </Link>
         <nav aria-label="Main" className={styles.rail}>
-          {navItems.map((item, index) => {
+          {NAV_ITEMS.map((item, index) => {
             const active = item.href === activeHref;
             return (
               <Link
@@ -50,25 +44,14 @@ export function SiteHeader({ activeHref, viewer }: SiteHeaderProps): React.JSX.E
                   <span className={styles.navNumber}>{String(index + 1).padStart(2, "0")}</span>
                 )}
                 {item.label}
-                {item.badge ? (
-                  <span className={styles.badge} aria-label={`${item.badge} new`}>
-                    {item.badge}
-                  </span>
-                ) : null}
+                {item.pending && <PendingBadge />}
               </Link>
             );
           })}
         </nav>
         <div className={styles.actions}>
           <ThemeSwitcher />
-          <HeaderAuth>
-            {viewer && (
-              <button type="button" className={styles.iconButton} aria-label={`Notifications, ${viewer.unreadNotifications} unread`}>
-                <BellIcon />
-                {viewer.unreadNotifications > 0 && <span className={styles.unreadDot} />}
-              </button>
-            )}
-          </HeaderAuth>
+          <HeaderAuth />
         </div>
       </div>
     </header>

@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import page from "@/components/layout/page.module.css";
 import { SiteHeader } from "@/components/layout/site-header";
-import { MusicianProfileView } from "@/components/profile/musician-profile";
-import { musicianProfile } from "@/demo-data/musician-profile";
-import { currentViewer } from "@/demo-data/session";
+import { MusicianPage } from "@/components/musicians/musician-page";
 import { routes } from "@/lib/routes";
 
-export const metadata: Metadata = { title: `${musicianProfile.name}, drummer` };
+export const metadata: Metadata = { title: "Musician" };
 
-export function generateStaticParams(): { slug: string }[] {
-  return [{ slug: musicianProfile.slug }];
+async function MusicianRoute({ params }: { params: PageProps<"/musicians/[slug]">["params"] }): Promise<React.JSX.Element> {
+  const { slug } = await params;
+  return <MusicianPage slug={slug} />;
 }
 
-/** Demo: every musician slug renders the one profile in `demo-data` until the API exists. */
-export default function MusicianPage(): React.JSX.Element {
+/** Any musician's public profile, read from `GET /musicians/:slug` by `MusicianPage`. */
+export default function MusicianRoutePage({ params }: PageProps<"/musicians/[slug]">): React.JSX.Element {
   return (
     <>
-      <SiteHeader activeHref={routes.musicians} viewer={currentViewer} />
-      <MusicianProfileView musician={musicianProfile} />
+      <SiteHeader activeHref={routes.musicians} />
+      <Suspense fallback={<main className={page.page} />}>
+        <MusicianRoute params={params} />
+      </Suspense>
     </>
   );
 }

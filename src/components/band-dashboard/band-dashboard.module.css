@@ -1,0 +1,456 @@
+/* The band's own dashboard: a sidebar (band switcher, sections, you) and a content column of cards. */
+
+.shell {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 24px 32px 72px;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+/* ---------- Sidebar */
+
+.sidebar {
+  min-width: 0;
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.switcher {
+  position: relative;
+}
+
+.switcherButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text-strong);
+  font: 600 16px var(--font-body);
+  cursor: pointer;
+  text-align: left;
+}
+
+.switcherButton:hover {
+  background: var(--surface-hover);
+}
+
+.switcherName {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  color: var(--text-muted);
+  flex: none;
+}
+
+.menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  min-width: 200px;
+  padding: 6px;
+  margin: 0;
+  list-style: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--surface-raised);
+  box-shadow: 0 12px 30px var(--shadow);
+}
+
+.menuRight {
+  left: auto;
+  right: 0;
+  width: 200px;
+}
+
+.menuItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font: 500 14px var(--font-body);
+  text-align: left;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  background: var(--surface-hover);
+  color: var(--text-strong);
+}
+
+.menuDanger {
+  color: var(--danger-text);
+}
+
+.menuDanger:hover {
+  color: var(--danger-text);
+  background: var(--danger-bg);
+}
+
+.navGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navLabel {
+  padding: 0 10px 6px;
+  font: 600 12px var(--font-body);
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-soft);
+  font: 500 15px var(--font-body);
+  text-align: left;
+  cursor: pointer;
+}
+
+.navItem:hover {
+  background: var(--surface-hover);
+  color: var(--text-strong);
+}
+
+.navItem[aria-current="page"] {
+  background: var(--surface-2);
+  color: var(--text-strong);
+}
+
+.navCount {
+  margin-left: auto;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--violet);
+  color: var(--violet-ink);
+  font: 700 11px var(--font-body);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.you {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  min-width: 0;
+}
+
+.youText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.youText strong {
+  font-size: 14px;
+  color: var(--text-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ---------- Content */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: var(--text-soft);
+}
+
+.breadcrumb a:hover {
+  color: var(--text-strong);
+}
+
+.crumbSep {
+  color: var(--text-faint);
+}
+
+.block {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.blockHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.blockTitle {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+.blockLead {
+  margin-top: 4px;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.blockActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+  gap: 12px;
+}
+
+.stat {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statValue {
+  font: 700 30px var(--font-display);
+  color: var(--text-strong);
+}
+
+.statLabel {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  gap: 24px;
+  align-items: start;
+}
+
+/* ---------- Tables */
+
+.tableWrap {
+  /* Visible, not auto: a row's action menu must be able to overflow the table. Narrow screens drop columns instead. */
+  overflow: visible;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 0 14px 12px;
+  border-bottom: 1px solid var(--line-soft);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.person strong {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.person a {
+  color: var(--text-strong);
+}
+
+.youTag {
+  height: 24px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.chipTight {
+  height: 24px;
+  font-size: 12px;
+  padding: 0 9px;
+}
+
+.muted {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.message {
+  max-width: 280px;
+  color: var(--text-soft);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.rowActions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.dots {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dots:hover {
+  background: var(--surface-hover);
+  color: var(--text-strong);
+}
+
+.noData {
+  padding: 36px 0 20px;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.danger {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-color: var(--danger-border);
+}
+
+.confirmActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+@media (max-width: 960px) {
+  .shell {
+    grid-template-columns: 1fr;
+    padding: 20px 16px 56px;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .nav {
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+  }
+
+  .navGroup {
+    flex-direction: row;
+  }
+
+  .navLabel,
+  .you {
+    display: none;
+  }
+
+  .navItem {
+    white-space: nowrap;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hideSmall {
+    display: none;
+  }
+
+  .table td,
+  .table th {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}

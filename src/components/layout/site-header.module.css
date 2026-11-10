@@ -75,12 +75,10 @@
 
 .navItemActive,
 .navItemActive:hover {
-  background: var(--teal);
-  color: var(--teal-ink);
+  background: var(--surface-2);
+  color: var(--text-strong);
   font-weight: 600;
-  box-shadow:
-    0 0 0 1px var(--teal-soft),
-    0 6px 18px var(--teal-glow);
+  box-shadow: inset 0 0 0 1px var(--border-strong);
 }
 
 .navItemActive :global(.equalizer) span:nth-child(n) {
@@ -100,10 +98,6 @@
   justify-content: center;
 }
 
-.navItemActive .badge {
-  background: var(--teal-ink);
-  color: var(--teal-soft);
-}
 
 .actions {
   display: flex;
@@ -147,7 +141,7 @@
   box-shadow: 0 0 0 2px var(--surface-hover);
 }
 
-/* The avatar sits on a tiny record; records keep their literal colours in both themes. */
+/* The avatar sits on a tiny record, drawn in the theme's greys. */
 .me {
   width: 44px;
   height: 44px;
@@ -156,8 +150,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: repeating-radial-gradient(circle, #15171d 0 2px, #262a36 2px 3px);
-  box-shadow: 0 0 0 2px var(--teal);
+  background: repeating-radial-gradient(circle, var(--surface-2) 0 2px, var(--border-strong) 2px 3px);
+  box-shadow: 0 0 0 2px var(--border-hover);
 }
 
 /* Track numbers are the first thing to go when the capsule runs out of room. */

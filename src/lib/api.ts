@@ -1,6 +1,7 @@
 import type { UploadEndpoints } from "@/lib/cloudinary-upload";
 import type { AccountUser, LoginRequest, SignupRequest } from "@/types/auth";
-import type { AddMemberRequest, Band, BandInfoRequest, MemberCandidate } from "@/types/band-api";
+import type { AddMemberRequest, Band, BandDashboard, BandInfoRequest, IntroductionRequest, MemberCandidate, MembershipCard } from "@/types/band-api";
+import type { BandCard, InviteOption, MembershipInbox, MembershipRequest, MusicianCard, MyBand, PublicMusician, RequestAnswer, SearchPage } from "@/types/discovery";
 import type { LocationNode } from "@/types/location";
 import type {
   AvailabilitySlot,
@@ -57,6 +58,25 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const body = await response.json().catch(() => null);
   if (!response.ok) throw new ApiError(response.status, body);
   return (body as ApiEnvelope<T>).data;
+}
+
+
+/**
+ * `request` for signed-in calls. The access cookie lives 15 minutes, so a 401 swaps the refresh cookie
+ * for a fresh pair once and retries; a page left open a while still works on the next click.
+ */
+async function authed<T>(path: string, init: RequestInit = {}): Promise<T> {
+  try {
+    return await request<T>(path, init);
+  } catch (error) {
+    if (!(error instanceof ApiError) || error.status !== 401) throw error;
+    try {
+      await request("/auth/refresh", { method: "POST" });
+    } catch {
+      throw error;
+    }
+    return request<T>(path, init);
+  }
 }
 
 /** `{ level: 1 }` lists the divisions; `{ parent_id: id }` lists the children of one location. */
@@ -197,6 +217,50 @@ export const bandPhotoEndpoints = (id: number): UploadEndpoints<Band> => ({
 export const saveBandVideos = (id: number, videoUrls: string[]): Promise<Band> =>
   request(bandPath(id, "videos"), { method: "PUT", body: JSON.stringify({ video_urls: videoUrls }) });
 export const publishBand = (id: number): Promise<Band> => post(bandPath(id, "publish"));
+
+/* ------------------------------------------------------------------ discovery (/musicians, /bands) */
+
+/** Drops empty values, so `?genre_ids=` never reaches the API as "no genre". */
+const queryString = (query: Record<string, string | number | boolean | undefined | null>): string => {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(query)) if (value !== undefined && value !== null && value !== "") params.set(key, String(value));
+  const text = params.toString();
+  return text ? `?${text}` : "";
+};
+
+export type SearchQuery = Record<string, string | number | boolean | undefined | null>;
+
+export const searchMusicians = (query: SearchQuery): Promise<SearchPage<MusicianCard>> => request(`/musicians${queryString(query)}`);
+export const getMusician = (slug: string): Promise<PublicMusician> => request(`/musicians/${encodeURIComponent(slug)}`);
+export const searchBands = (query: SearchQuery): Promise<SearchPage<BandCard>> => request(`/bands${queryString(query)}`);
+/** Every band I'm in, owned first; my own drafts too. */
+export const getMyBands = (): Promise<MyBand[]> => authed("/bands/me");
+
+export const addOpenRole = (bandId: number, instrumentId: number, description: string): Promise<Band> =>
+  authed(bandPath(bandId, "open-roles"), { method: "POST", body: JSON.stringify({ instrument_id: instrumentId, ...(description.trim() ? { description: description.trim() } : {}) }) });
+export const closeOpenRole = (bandId: number, roleId: number): Promise<Band> => authed(bandPath(bandId, `open-roles/${roleId}`), { method: "DELETE" });
+
+/* ------------------------------------------------------------------ membership (welcome, introduction, card, band dashboard) */
+
+export const getBandDashboard = (bandId: number): Promise<BandDashboard> => authed(bandPath(bandId, "dashboard"));
+/** I saw my welcome (and skipped the introduction). */
+export const markWelcomed = (bandId: number): Promise<Band> => authed(bandPath(bandId, "members/me/welcome"), { method: "POST" });
+export const saveIntroduction = (bandId: number, introduction: IntroductionRequest): Promise<Band> =>
+  authed(bandPath(bandId, "members/me/introduction"), { method: "PUT", body: JSON.stringify(introduction) });
+export const leaveBand = (bandId: number): Promise<null> => authed(bandPath(bandId, "leave"), { method: "POST" });
+export const getMembershipCard = (slug: string, memberId: number): Promise<MembershipCard> =>
+  request(`/bands/${encodeURIComponent(slug)}/members/${memberId}/card`);
+
+/* ------------------------------------------------------------------ joining (/membership-requests) */
+
+export const getInbox = (): Promise<MembershipInbox> => authed("/membership-requests/me");
+/** My published bands, and where each stands with this musician. */
+export const getInviteOptions = (userId: number): Promise<InviteOption[]> => authed(`/membership-requests/invite-options/${userId}`);
+export const sendInvitation = (invite: { band_id: number; user_id: number; instrument_id?: number; message?: string }): Promise<MembershipRequest> =>
+  authed("/membership-requests/invitations", { method: "POST", body: JSON.stringify(invite) });
+export const sendJoinRequest = (join: { band_id: number; open_role_id: number; message?: string }): Promise<MembershipRequest> =>
+  authed("/membership-requests/join-requests", { method: "POST", body: JSON.stringify(join) });
+export const answerRequest = (id: number, answer: RequestAnswer): Promise<MembershipRequest> => authed(`/membership-requests/${id}/${answer}`, { method: "POST" });
 
 /**
  * A readable sentence for any failed call. A validation 400's `{ field: { rule: text } }` becomes

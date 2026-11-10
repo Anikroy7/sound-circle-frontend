@@ -1,0 +1,95 @@
+/* The public musician profile's extras on top of profile.module.css, and the invite / join dialogs. */
+
+.dialogForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.dialogActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.banner {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.bannerText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.bannerActions {
+  display: flex;
+  gap: 8px;
+}
+
+.statusNote {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.bandLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.bandLink {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.bandLink:hover {
+  color: var(--teal-soft);
+}
+
+.roleOption {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.roleOption:has(input:checked) {
+  border-color: var(--teal);
+  background: var(--chip-teal-bg);
+}
+
+.roleOption:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.roleOption input {
+  margin-top: 3px;
+  accent-color: var(--teal);
+}
+
+.roleText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+}

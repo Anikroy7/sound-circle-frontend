@@ -8,7 +8,9 @@ export const routes = {
   musician: (slug: string): string => `/musicians/${slug}`,
   bands: "/bands",
   band: (slug: string): string => `/bands/${slug}`,
-  manageBand: (slug: string): string => `/bands/${slug}/manage`,
+  /** The band's own dashboard, for its members. */
+  bandDashboard: (slug: string, view?: string): string => `/bands/${slug}/manage${view ? `?view=${view}` : ""}`,
+  membershipCard: (slug: string, memberId: number): string => `/bands/${slug}/card/${memberId}`,
   createBand: "/bands/new",
   /** Band creation: information, then members, then performance media and publish (`lib/band-steps.ts`). */
   createBandStep: {

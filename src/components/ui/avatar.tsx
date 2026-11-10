@@ -9,7 +9,7 @@ interface AvatarProps {
   size: number;
   /** Bands are rounded squares; musicians are circles. */
   shape?: "circle" | "square";
-  /** `solid` fills with the tone's accent; `tinted` is the striped photo placeholder with accent initials. */
+  /** `solid` is a soft fill with accent initials; `tinted` is the same on the striped photo placeholder. */
   variant?: "solid" | "tinted";
   /** A real photo; the initials are the fallback when there is none. */
   photoUrl?: string | null;
@@ -24,8 +24,7 @@ const sizedPhoto = (url: string, size: number): string =>
 /** A photo, or initials standing in for one. Decorative: the name always appears next to it. */
 export function Avatar({ initials, tone, size, shape = "circle", variant = "solid", photoUrl, className, style }: AvatarProps): React.JSX.Element {
   const palette = tones[tone];
-  const colours: CSSProperties =
-    variant === "solid" ? { background: palette.ink } : { backgroundColor: palette.tint, color: palette.ink };
+  const colours: CSSProperties = { backgroundColor: palette.tint, color: palette.ink };
 
   return (
     <span

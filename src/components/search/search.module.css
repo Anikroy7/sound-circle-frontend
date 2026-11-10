@@ -1,0 +1,180 @@
+/* The musician and band directories: a search box, one row of filters, a grid of cards, a pager. */
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.searchField {
+  position: relative;
+  flex: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  display: flex;
+  pointer-events: none;
+}
+
+.searchInput {
+  padding-left: 42px;
+  height: 48px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.select {
+  width: auto;
+  min-width: 150px;
+  max-width: 220px;
+  height: 38px;
+  padding: 0 10px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.sort {
+  margin-left: auto;
+}
+
+.clear {
+  border: 0;
+  background: none;
+  padding: 0 6px;
+  font: 500 14px var(--font-body);
+  color: var(--teal-soft);
+  cursor: pointer;
+}
+
+.count {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  color: var(--text);
+  min-width: 0;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+}
+
+.card:hover {
+  color: var(--text);
+  border-color: var(--teal);
+  transform: translateY(-1px);
+}
+
+.cardHead {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  min-width: 0;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cardName {
+  font-size: 17px;
+  font-weight: 650;
+  color: var(--text-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardSub {
+  font-size: 14px;
+  color: var(--teal-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardMeta {
+  font-size: 13px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tags :global(.chip) {
+  height: 26px;
+  font-size: 12px;
+}
+
+.hiring {
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.hiring strong {
+  color: var(--violet-soft);
+  font-weight: 600;
+}
+
+.pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+}
+
+.empty {
+  padding: 40px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.skeleton {
+  height: 132px;
+  background: var(--surface-2);
+  border-color: transparent;
+}
+
+@media (max-width: 640px) {
+  .select {
+    flex: 1 1 140px;
+    max-width: none;
+  }
+
+  .sort {
+    margin-left: 0;
+  }
+}

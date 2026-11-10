@@ -70,9 +70,9 @@ function Vinyl(): React.JSX.Element {
         </div>
       </div>
       <svg className={styles.tonearm} width="150" height="190" viewBox="0 0 150 190">
-        <circle cx="122" cy="26" r="18" fill="#232A38" stroke="#3A4458" strokeWidth="2" />
-        <path d="M122 26 L98 150 L64 176" stroke="#9AA5B8" strokeWidth="5" fill="none" strokeLinecap="round" />
-        <rect x="50" y="166" width="26" height="16" rx="3" fill="#C9D1DE" transform="rotate(-35 63 174)" />
+        <circle cx="122" cy="26" r="18" fill="#27272A" stroke="#3F3F46" strokeWidth="2" />
+        <path d="M122 26 L98 150 L64 176" stroke="#A1A1AA" strokeWidth="5" fill="none" strokeLinecap="round" />
+        <rect x="50" y="166" width="26" height="16" rx="3" fill="#D4D4D8" transform="rotate(-35 63 174)" />
       </svg>
     </div>
   );

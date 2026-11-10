@@ -1,83 +1,98 @@
 /* Design tokens and the shared primitives every page uses. Section layout lives in each feature's CSS module. */
 
 :root {
-  /* Every colour is light-dark(light, dark); `color-scheme` below decides which half applies. */
-  --bg: light-dark(#f6f7fb, #0b0f17);
-  --bg-raised: light-dark(#eef1f6, #0e1320);
-  --bg-sunken: light-dark(#e8ecf2, #090c13);
-  --surface: light-dark(#ffffff, #121826);
-  --surface-2: light-dark(#f1f4f8, #1a2130);
-  --surface-2-hover: light-dark(#e6eaf1, #222b3d);
-  --surface-hover: light-dark(#e9edf3, #161d2b);
-  --input-bg: light-dark(#ffffff, #0e1420);
-  --line: light-dark(#e1e5ec, #1b2232);
-  --border: light-dark(#dce1e9, #232c3d);
-  --border-strong: light-dark(#c9d1dd, #2a3346);
-  --border-hover: light-dark(#a9b3c2, #3a4458);
-  --border-accent: light-dark(#c2cbd9, #2e3a50);
-  --text: light-dark(#111827, #e6eaf2);
-  --text-strong: light-dark(#030712, #ffffff);
-  --text-soft: light-dark(#374151, #c9d1de);
-  --text-muted: light-dark(#5b6576, #9aa5b8);
-  --teal: light-dark(#0d9488, #2dd4bf);
-  --teal-soft: light-dark(#0f766e, #5eead4);
-  --teal-pale: light-dark(#115e59, #99f6e4);
-  --teal-ink: light-dark(#ffffff, #04211d);
-  --violet: light-dark(#7c3aed, #a78bfa);
+  /*
+   * Clean graphite: neutral greys, a monochrome primary for solid buttons, one blue accent (links,
+   * selection, focus, progress) and violet for secondary highlights (owners, open positions, counts).
+   * ⚠ Token names predate this palette: the `teal*` tokens are the blue accent, `violet*` the secondary.
+   * Every colour is light-dark(light, dark); `color-scheme` below decides which half applies.
+   */
+  --bg: light-dark(#fafafa, #0a0a0b);
+  --bg-raised: light-dark(#f4f4f5, #0f0f11);
+  --bg-sunken: light-dark(#ededf0, #070708);
+  --surface: light-dark(#ffffff, #131315);
+  --surface-2: light-dark(#f4f4f5, #1b1b1e);
+  --surface-2-hover: light-dark(#e9e9ec, #25252a);
+  --surface-hover: light-dark(#f1f1f3, #19191c);
+  --input-bg: light-dark(#ffffff, #0f0f11);
+  --line: light-dark(#ececef, #1e1e22);
+  --border: light-dark(#e4e4e7, #242428);
+  --border-strong: light-dark(#d4d4d8, #2e2e33);
+  --border-hover: light-dark(#a1a1aa, #46464d);
+  --border-accent: light-dark(#c4c4cc, #3a3a41);
+  --text: light-dark(#18181b, #ececee);
+  --text-strong: light-dark(#09090b, #fafafa);
+  --text-soft: light-dark(#3f3f46, #d4d4d8);
+  --text-muted: light-dark(#71717a, #a1a1aa);
+
+  /* Primary: solid buttons. Monochrome, so the accent stays rare and meaningful. */
+  --primary: light-dark(#18181b, #fafafa);
+  --primary-hover: light-dark(#3f3f46, #e4e4e7);
+  --primary-ink: light-dark(#fafafa, #18181b);
+
+  /* Accent (blue). */
+  --teal: light-dark(#2563eb, #3b82f6);
+  --teal-soft: light-dark(#2563eb, #60a5fa);
+  --teal-pale: light-dark(#1d4ed8, #93c5fd);
+  --teal-ink: #ffffff;
+  /* Secondary (violet) and status amber. */
+  --violet: light-dark(#7c3aed, #8b5cf6);
   --violet-soft: light-dark(#6d28d9, #c4b5fd);
-  --amber-soft: light-dark(#b45309, #fcd34d);
+  --amber-soft: light-dark(#b45309, #fbbf24);
 
-  --chip-teal-bg: light-dark(#ccfbf1, #0f2e2b);
-  --chip-teal-border: light-dark(#99f6e4, #155e56);
-  --chip-violet-bg: light-dark(#ede9fe, #211c3d);
-  --chip-violet-border: light-dark(#ddd6fe, #3d3477);
-  --chip-amber-bg: light-dark(#fef3c7, #33260c);
-  --chip-amber-border: light-dark(#fde68a, #5c4512);
+  --chip-teal-bg: light-dark(#eff6ff, #0f1b33);
+  --chip-teal-border: light-dark(#bfdbfe, #1e3a6b);
+  --chip-violet-bg: light-dark(#f5f3ff, #1b1630);
+  --chip-violet-border: light-dark(#ddd6fe, #3b2f66);
+  --chip-amber-bg: light-dark(#fffbeb, #241b08);
+  --chip-amber-border: light-dark(#fde68a, #4a3810);
 
-  /* Placeholder fills (`tint`) and the accent drawn on them (`ink`); see lib/tones.ts. */
-  --tone-teal-tint: light-dark(#ccfbf1, #12302c);
+  /* Placeholder fills (`tint`) and the accent drawn on them (`ink`); see lib/tones.ts. Avatars stay varied. */
+  --tone-teal-tint: light-dark(#ccfbf1, #10302c);
   --tone-teal-ink: light-dark(#0f766e, #5eead4);
-  --tone-violet-tint: light-dark(#ede9fe, #1e1b3a);
+  --tone-violet-tint: light-dark(#ede9fe, #1e1a36);
   --tone-violet-ink: light-dark(#6d28d9, #c4b5fd);
-  --tone-amber-tint: light-dark(#fef3c7, #2e2410);
+  --tone-amber-tint: light-dark(#fef3c7, #2c230f);
   --tone-amber-ink: light-dark(#b45309, #fcd34d);
-  --tone-blue-tint: light-dark(#dbeafe, #10243f);
+  --tone-blue-tint: light-dark(#dbeafe, #11223d);
   --tone-blue-ink: light-dark(#1d4ed8, #93c5fd);
-  --tone-rose-tint: light-dark(#ffe4e6, #3a1424);
+  --tone-rose-tint: light-dark(#ffe4e6, #361521);
   --tone-rose-ink: light-dark(#be123c, #fda4af);
-  --tone-lime-tint: light-dark(#ecfccb, #1f2a10);
+  --tone-lime-tint: light-dark(#ecfccb, #1d2711);
   --tone-lime-ink: light-dark(#4d7c0f, #bef264);
+  --tone-slate-tint: light-dark(#e4e4e7, #1f1f23);
+  --tone-slate-ink: light-dark(#52525b, #a1a1aa);
 
   /* Translucent layers over photos, shadows and the hero backdrop. */
-  --overlay: light-dark(rgba(255, 255, 255, 0.82), rgba(11, 15, 23, 0.78));
-  --glass: light-dark(rgba(255, 255, 255, 0.88), rgba(18, 24, 38, 0.85));
-  --glass-strong: light-dark(rgba(255, 255, 255, 0.96), rgba(19, 26, 40, 0.95));
-  --stripe: light-dark(rgba(15, 23, 42, 0.045), rgba(255, 255, 255, 0.035));
-  --shadow: light-dark(rgba(15, 23, 42, 0.14), rgba(0, 0, 0, 0.5));
-  --cta-bg: light-dark(#f3f0ff, #141a2c);
-  --cta-border: light-dark(#ddd6fe, #2e2a55);
-  --ticker-outline: light-dark(#8b95a7, #5a6478);
-  --ticker-star: light-dark(#b8c0cc, #3a4458);
-  --hero-ring-teal: light-dark(#cdeee9, #1b2a33);
-  --hero-ring-violet: light-dark(#e2dcfb, #1a1d33);
-  --hero-ring: light-dark(#e1e6ee, #151c28);
-  --hero-staff: light-dark(#e3e7ee, #161e2c);
-  --tone-slate-tint: light-dark(#e2e8f0, #1a2130);
-  --tone-slate-ink: light-dark(#475569, #94a3b8);
+  --overlay: light-dark(rgba(255, 255, 255, 0.82), rgba(10, 10, 11, 0.78));
+  --glass: light-dark(rgba(255, 255, 255, 0.88), rgba(19, 19, 21, 0.85));
+  --glass-strong: light-dark(rgba(255, 255, 255, 0.96), rgba(19, 19, 21, 0.95));
+  --stripe: light-dark(rgba(9, 9, 11, 0.04), rgba(255, 255, 255, 0.03));
+  --shadow: light-dark(rgba(9, 9, 11, 0.12), rgba(0, 0, 0, 0.5));
+  --cta-bg: light-dark(#f4f4f5, #131315);
+  --cta-border: light-dark(#e4e4e7, #26262b);
+  --ticker-outline: light-dark(#a1a1aa, #52525b);
+  --ticker-star: light-dark(#d4d4d8, #3f3f46);
+  --hero-ring-teal: light-dark(#dbeafe, #162036);
+  --hero-ring-violet: light-dark(#ede9fe, #1c1930);
+  --hero-ring: light-dark(#e4e4e7, #18181b);
+  --hero-staff: light-dark(#e4e4e7, #1c1c20);
 
   /* App surfaces: the header capsule, inset rows inside cards and dialog-level panels. */
-  --capsule-bg: light-dark(rgba(255, 255, 255, 0.92), #10151f);
-  --rail-bg: light-dark(#f1f3f8, #0a0e15);
-  --surface-raised: light-dark(#ffffff, #131a28);
-  --inset: light-dark(#f3f5f9, #0e1420);
-  --line-soft: light-dark(#e8ebf1, #1f2738);
-  --text-faint: light-dark(#6b7487, #7c879a);
-  --violet-ink: light-dark(#ffffff, #140f2b);
-  --shadow-soft: light-dark(rgba(20, 24, 38, 0.08), rgba(0, 0, 0, 0.35));
-  --teal-glow: rgba(45, 212, 191, 0.25);
-  --success-text: light-dark(#115e59, #ccfbf1);
-  --danger-bg: light-dark(#fef2f2, #2a1117);
-  --danger-border: light-dark(#fecaca, #5b1d27);
+  --capsule-bg: light-dark(rgba(255, 255, 255, 0.9), rgba(19, 19, 21, 0.92));
+  --rail-bg: light-dark(#f4f4f5, #0d0d0f);
+  --surface-raised: light-dark(#ffffff, #18181b);
+  --inset: light-dark(#f8f8f9, #0f0f11);
+  --line-soft: light-dark(#ececef, #222226);
+  --text-faint: light-dark(#7a7a83, #71717a);
+  --violet-ink: #ffffff;
+  --shadow-soft: light-dark(rgba(9, 9, 11, 0.06), rgba(0, 0, 0, 0.35));
+  --teal-glow: rgba(59, 130, 246, 0.28);
+  --success-bg: light-dark(#f0fdf4, #0b1f14);
+  --success-border: light-dark(#bbf7d0, #14532d);
+  --success-text: light-dark(#166534, #bbf7d0);
+  --danger-bg: light-dark(#fef2f2, #2a1215);
+  --danger-border: light-dark(#fecaca, #5b1d24);
   --danger-text: light-dark(#b91c1c, #fca5a5);
   --danger-text-soft: light-dark(#991b1b, #fecaca);
   --danger-line: light-dark(#dc2626, #f87171);
@@ -160,13 +175,13 @@ ol {
 }
 
 .btn-primary {
-  background: var(--teal);
-  color: var(--teal-ink);
+  background: var(--primary);
+  color: var(--primary-ink);
 }
 
 .btn-primary:hover {
-  background: var(--teal-soft);
-  color: var(--teal-ink);
+  background: var(--primary-hover);
+  color: var(--primary-ink);
 }
 
 .btn-secondary {
@@ -486,8 +501,8 @@ textarea.input {
 }
 
 .alert-success {
-  background: var(--chip-teal-bg);
-  border-color: var(--chip-teal-border);
+  background: var(--success-bg);
+  border-color: var(--success-border);
   color: var(--success-text);
 }
 

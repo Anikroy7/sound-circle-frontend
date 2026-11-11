@@ -51,7 +51,14 @@ export function JoinDialog({ band, roleId, onClose, onSent }: JoinDialogProps): 
             const allowed = fillable.has(role.id);
             return (
               <label key={role.id} className={styles.roleOption}>
-                <input type="radio" name="role" value={role.id} checked={chosen === role.id} disabled={!allowed} onChange={() => setChosen(role.id)} />
+                <input
+                  type="radio"
+                  name="role"
+                  value={role.id}
+                  checked={chosen === role.id}
+                  disabled={!allowed}
+                  onChange={() => setChosen(role.id)}
+                />
                 <span className={styles.roleText}>
                   <strong>{role.instrument_name}</strong>
                   {role.description && <span className="muted">{role.description}</span>}

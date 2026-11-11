@@ -105,7 +105,13 @@ export function WelcomeModal({ band, member, onDone }: WelcomeModalProps): React
           <Confetti />
           <div className={styles.pair}>
             <Avatar initials={initialsOf(band.name)} tone={toneFor(band.id)} size={88} shape="square" photoUrl={band.logo_url} className="display" />
-            <Avatar initials={initialsOf(member.name)} tone={member.user_id ? toneFor(member.user_id) : "slate"} size={88} photoUrl={member.photo_url} className="display" />
+            <Avatar
+              initials={initialsOf(member.name)}
+              tone={member.user_id ? toneFor(member.user_id) : "slate"}
+              size={88}
+              photoUrl={member.photo_url}
+              className="display"
+            />
           </div>
           <Equalizer bars={[14, 22, 10, 26, 16]} barWidth={5} gap={4} />
           <h2 id="welcome-title" className={`display ${styles.welcomeTitle}`}>

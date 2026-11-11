@@ -1,17 +1,19 @@
 import type { UploadEndpoints } from "@/lib/cloudinary-upload";
 import type { AccountUser, LoginRequest, SignupRequest } from "@/types/auth";
 import type { AddMemberRequest, Band, BandDashboard, BandInfoRequest, IntroductionRequest, MemberCandidate, MembershipCard } from "@/types/band-api";
-import type { BandCard, InviteOption, MembershipInbox, MembershipRequest, MusicianCard, MyBand, PublicMusician, RequestAnswer, SearchPage } from "@/types/discovery";
-import type { LocationNode } from "@/types/location";
 import type {
-  AvailabilitySlot,
-  BandExperienceRequest,
-  BandInterest,
-  CatalogItem,
-  MediaTarget,
-  MusicianProfile,
-  UploadTicket,
-} from "@/types/profile";
+  BandCard,
+  InviteOption,
+  MembershipInbox,
+  MembershipRequest,
+  MusicianCard,
+  MyBand,
+  PublicMusician,
+  RequestAnswer,
+  SearchPage,
+} from "@/types/discovery";
+import type { LocationNode } from "@/types/location";
+import type { AvailabilitySlot, BandExperienceRequest, BandInterest, CatalogItem, MediaTarget, MusicianProfile, UploadTicket } from "@/types/profile";
 
 /** The SoundCircle API. Override with `NEXT_PUBLIC_API_BASE_URL` in `.env.local`. */
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8020/api/v1";
@@ -60,7 +62,6 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   return (body as ApiEnvelope<T>).data;
 }
 
-
 /**
  * `request` for signed-in calls. The access cookie lives 15 minutes, so a 401 swaps the refresh cookie
  * for a fresh pair once and retries; a page left open a while still works on the next click.
@@ -87,6 +88,12 @@ export async function getLocations(query: Record<string, number>): Promise<Locat
 
   const body: ApiEnvelope<LocationNode[]> = await response.json();
   return body.data;
+}
+
+/** Places whose name (English or Bangla) contains `text`, best matches first, each with its `label`. */
+export async function searchLocations(text: string, limit = 8): Promise<LocationNode[]> {
+  const page = await request<{ items: LocationNode[] }>(`/locations?${new URLSearchParams({ search: text, page_size: String(limit) })}`);
+  return page.items;
 }
 
 export function signUp(account: SignupRequest): Promise<AccountUser> {
@@ -144,8 +151,7 @@ export const getGenres = (): Promise<CatalogItem[]> => catalog("/genres");
 /** The signed-in musician's profile; `id` is null before step 1. 401 for a visitor. */
 export const getMyProfile = (): Promise<MusicianProfile> => request("/profiles/me");
 
-const put = (step: string, body: unknown): Promise<MusicianProfile> =>
-  request(`/profiles/me/${step}`, { method: "PUT", body: JSON.stringify(body) });
+const put = (step: string, body: unknown): Promise<MusicianProfile> => request(`/profiles/me/${step}`, { method: "PUT", body: JSON.stringify(body) });
 
 export const saveAbout = (bio: string, locationIds: number[]): Promise<MusicianProfile> => put("about", { bio, location_ids: locationIds });
 /** The location set on its own, from the profile page (step 1 sends it with the bio). */
@@ -189,7 +195,8 @@ export const removeProfilePhoto = (): Promise<MusicianProfile> => request("/prof
 /* ------------------------------------------------------------------ bands (/bands) */
 
 const bandPath = (id: number, rest: string): string => `/bands/${id}/${rest}`;
-const post = <T>(path: string, body?: unknown): Promise<T> => request(path, { method: "POST", body: body === undefined ? undefined : JSON.stringify(body) });
+const post = <T>(path: string, body?: unknown): Promise<T> =>
+  request(path, { method: "POST", body: body === undefined ? undefined : JSON.stringify(body) });
 
 /** The band I'm still creating, or null. */
 export const getBandDraft = (): Promise<Band | null> => request("/bands/me/draft");
@@ -237,8 +244,12 @@ export const searchBands = (query: SearchQuery): Promise<SearchPage<BandCard>> =
 export const getMyBands = (): Promise<MyBand[]> => authed("/bands/me");
 
 export const addOpenRole = (bandId: number, instrumentId: number, description: string): Promise<Band> =>
-  authed(bandPath(bandId, "open-roles"), { method: "POST", body: JSON.stringify({ instrument_id: instrumentId, ...(description.trim() ? { description: description.trim() } : {}) }) });
-export const closeOpenRole = (bandId: number, roleId: number): Promise<Band> => authed(bandPath(bandId, `open-roles/${roleId}`), { method: "DELETE" });
+  authed(bandPath(bandId, "open-roles"), {
+    method: "POST",
+    body: JSON.stringify({ instrument_id: instrumentId, ...(description.trim() ? { description: description.trim() } : {}) }),
+  });
+export const closeOpenRole = (bandId: number, roleId: number): Promise<Band> =>
+  authed(bandPath(bandId, `open-roles/${roleId}`), { method: "DELETE" });
 
 /* ------------------------------------------------------------------ membership (welcome, introduction, card, band dashboard) */
 
@@ -260,7 +271,8 @@ export const sendInvitation = (invite: { band_id: number; user_id: number; instr
   authed("/membership-requests/invitations", { method: "POST", body: JSON.stringify(invite) });
 export const sendJoinRequest = (join: { band_id: number; open_role_id: number; message?: string }): Promise<MembershipRequest> =>
   authed("/membership-requests/join-requests", { method: "POST", body: JSON.stringify(join) });
-export const answerRequest = (id: number, answer: RequestAnswer): Promise<MembershipRequest> => authed(`/membership-requests/${id}/${answer}`, { method: "POST" });
+export const answerRequest = (id: number, answer: RequestAnswer): Promise<MembershipRequest> =>
+  authed(`/membership-requests/${id}/${answer}`, { method: "POST" });
 
 /**
  * A readable sentence for any failed call. A validation 400's `{ field: { rule: text } }` becomes
@@ -278,5 +290,7 @@ export function apiErrorMessage(error: unknown): string {
     return null;
   };
   const message = first(error.apiMessage);
-  return message ? `${message.charAt(0).toUpperCase()}${message.slice(1)}${/[.!?]$/.test(message) ? "" : "."}` : "Please check your answers and try again.";
+  return message
+    ? `${message.charAt(0).toUpperCase()}${message.slice(1)}${/[.!?]$/.test(message) ? "" : "."}`
+    : "Please check your answers and try again.";
 }

@@ -332,7 +332,7 @@
   align-items: center;
   padding: 14px;
   border-radius: 12px;
-  border: 1px dashed var(--chip-violet-border);
+  border: 1px dashed var(--chip-teal-border);
 }
 
 .openRoleMark {
@@ -342,8 +342,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--chip-violet-bg);
-  color: var(--violet-soft);
+  background: var(--chip-teal-bg);
+  color: var(--teal-soft);
   font-size: 22px;
   font-weight: 700;
   flex: none;
@@ -562,6 +562,16 @@
   gap: 8px;
 }
 
+/* A long place name wraps inside its chip instead of running out of the card. */
+.locationList li {
+  max-width: 100%;
+  height: auto;
+  min-height: 28px;
+  padding-block: 4px;
+  white-space: normal;
+  line-height: 1.35;
+}
+
 .audioPlayer {
   flex: 1 1 280px;
   max-width: 100%;
@@ -579,7 +589,6 @@
 .overStill {
   position: relative;
 }
-
 
 .photoLink {
   display: block;

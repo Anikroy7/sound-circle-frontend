@@ -1,42 +1,12 @@
-/* ---------- Shared section frame ---------- */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding-left: 32px;
-  padding-right: 32px;
-}
-
-.sectionStack {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-.sectionHead {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.sectionTitleGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.sectionTitle {
-  font-size: 34px;
-}
-
-.sectionLink {
-  font-weight: 600;
-}
-
-/* ---------- Hero ---------- */
+/* ---------- Featured banner (Home) ---------- */
 .hero {
   position: relative;
+  overflow: clip;
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--teal) 26%, transparent), transparent 55%),
+    linear-gradient(135deg, color-mix(in srgb, var(--teal) 16%, var(--surface)) 0%, var(--surface) 60%);
 }
 
 .heroRings {
@@ -44,24 +14,17 @@
   right: -260px;
   top: -300px;
   pointer-events: none;
-}
-
-.heroStaff {
-  position: absolute;
-  left: 0;
-  top: 150px;
-  pointer-events: none;
-  opacity: 0.5;
+  /* Drifts against the pointer, so the collage seems to float above it. */
+  translate: calc(var(--px, 0) * -14px) calc(var(--py, 0) * -14px);
 }
 
 .heroGrid {
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(480px, 100%), 1fr));
-  gap: 48px;
+  gap: 40px;
   align-items: center;
-  padding-top: 72px;
-  padding-bottom: 64px;
+  padding: 40px 40px 32px;
 }
 
 .heroCopy {
@@ -70,31 +33,61 @@
   gap: 24px;
 }
 
-.heroBadge {
-  align-self: flex-start;
+.heroKicker {
+  display: inline-flex;
+  align-items: center;
   gap: 10px;
+  font: 700 13px var(--font-body);
+  color: var(--teal-soft);
 }
 
 .heroTitle {
-  font-size: clamp(44px, 6vw, 80px);
-  line-height: 1;
-  font-weight: 800;
+  font: 800 clamp(36px, 4vw, 56px) / 1.02 var(--font-display);
+  letter-spacing: -0.04em;
+  color: var(--text-strong);
 }
 
 .heroAccent {
   color: var(--teal);
-  display: inline-flex;
-  align-items: flex-end;
-  gap: 18px;
-  flex-wrap: wrap;
 }
 
-.heroTitleBars {
-  margin-bottom: 10px;
+.heroPrimary,
+.heroSecondary {
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 600 15px var(--font-body);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.heroPrimary {
+  background: var(--primary);
+  color: var(--primary-ink);
+}
+
+.heroPrimary:hover {
+  color: var(--primary-ink);
+  background: var(--primary-hover);
+}
+
+.heroSecondary {
+  border: 1px solid var(--border-hover);
+  color: var(--text-strong);
+}
+
+.heroSecondary:hover {
+  color: var(--text-strong);
+  border-color: var(--text-strong);
 }
 
 .heroLead {
-  font-size: 19px;
+  color: var(--text-soft);
+  font-size: 17px;
   line-height: 1.6;
   max-width: 560px;
   text-wrap: pretty;
@@ -104,37 +97,6 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-}
-
-.search {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-  flex-wrap: wrap;
-  max-width: 600px;
-  background: var(--glass);
-}
-
-.searchField {
-  flex: 1 1 160px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 4px 6px;
-}
-
-.searchLabel {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.searchSelect {
-  height: 40px;
-}
-
-.searchSubmit {
-  align-self: flex-end;
-  margin: 0 4px 4px;
 }
 
 .heroVisual {
@@ -163,7 +125,14 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  animation: spin 9s linear infinite;
+  /* Spun by hero-visual.tsx, so it can be grabbed and flicked; grabbing must not select the label. */
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.vinylDisc:active {
+  cursor: grabbing;
 }
 
 .vinylSheen {
@@ -216,10 +185,65 @@
   position: absolute;
   right: -36px;
   top: -30px;
+  pointer-events: none;
+  transform-origin: 122px 26px;
+  transition: transform 0.6s ease;
+}
+
+/* Paused: the arm swings off the record. */
+.tonearmLifted {
+  transform: rotate(-24deg);
+}
+
+/* A draggable, pointer-drifting place in the collage; the card inside it floats. */
+.slot {
+  position: absolute;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.slot:active {
+  cursor: grabbing;
+}
+
+.slot button {
+  cursor: pointer;
+}
+
+.parallax {
+  translate: calc(var(--px, 0) * var(--depth, 0px)) calc(var(--py, 0) * var(--depth, 0px));
+}
+
+.float {
+  animation: bob 6s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.playHint {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: 12px;
+  color: var(--text-faint);
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.playHintGone {
+  opacity: 0;
 }
 
 .spotlightCard {
-  position: absolute;
   overflow: hidden;
   box-shadow: 0 24px 60px var(--shadow);
 }
@@ -274,11 +298,13 @@
   font-size: 12px;
 }
 
-.nowPlaying {
-  position: absolute;
+.nowPlayingSlot {
   right: 0;
   bottom: 0;
   width: 330px;
+}
+
+.nowPlaying {
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -338,23 +364,32 @@
 
 /* ---------- Genre ticker ---------- */
 .ticker {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
   background: var(--bg-raised);
   padding: 18px 0;
   overflow: hidden;
+  /* Draggable sideways (genre-ticker.tsx); a vertical swipe still scrolls the page. */
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.ticker:active {
+  cursor: grabbing;
 }
 
 .tickerTrack {
   display: flex;
   width: max-content;
-  animation: marquee 38s linear infinite;
+  will-change: transform;
 }
 
 .tickerWord {
-  font-size: 30px;
-  font-weight: 800;
-  padding: 0 22px;
+  font: 400 clamp(44px, 5.4vw, 80px) / 1.05 var(--font-condensed);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  padding: 0 28px;
   white-space: nowrap;
 }
 
@@ -369,519 +404,10 @@
   align-self: center;
 }
 
-/* ---------- Browse ---------- */
-.browse {
-  padding-top: 64px;
-  padding-bottom: 32px;
-}
-
-.instrumentGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
-  gap: 12px;
-}
-
-.instrumentTile {
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  color: var(--text);
-}
-
-.instrumentTile:hover {
-  color: var(--text);
-}
-
-.instrumentIcon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.instrumentName {
-  font-weight: 600;
-}
-
-.filterGroups {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
-  gap: 24px;
-}
-
-.filterGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.filterTitle {
-  font-size: 14px;
-}
-
-.chipList {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-/* ---------- Featured musicians ---------- */
-.featured {
-  padding-top: 48px;
-  padding-bottom: 24px;
-}
-
-.cardGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-  gap: 20px;
-}
-
-.musicianCard {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.musicianPhoto {
-  height: 210px;
-}
-
-.musicianInitials {
-  position: absolute;
-  inset: 0 0 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 64px;
-  font-weight: 800;
-  opacity: 0.4;
-}
-
-.availability {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: var(--overlay);
-}
-
-.samplePlayer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 10px 12px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  background: var(--overlay);
-}
-
-.samplePlay {
-  width: 34px;
-  height: 34px;
-}
-
-.sampleWave {
-  flex: 1;
-  height: 24px;
-}
-
-.sampleLength {
-  font-size: 11px;
-  color: var(--text-soft);
-  font-variant-numeric: tabular-nums;
-}
-
-.musicianBody {
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-.cardName {
-  font-size: 19px;
-}
-
-.musicianInstrument {
-  color: var(--teal-soft);
-  font-weight: 600;
-  font-size: 14px;
-  margin-top: 2px;
-}
-
-.chipRow {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.metaRow {
-  font-size: 13px;
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.cardActions {
-  display: flex;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 6px;
-}
-
-.cardActions > * {
-  flex: 1;
-}
-
-/* ---------- How it works ---------- */
-.howItWorks {
-  padding-top: 72px;
-  padding-bottom: 72px;
-  gap: 36px;
-}
-
-.centeredHead {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-}
-
-.centeredTitle {
-  font-size: 38px;
-}
-
-.centeredLead {
-  max-width: 520px;
-}
-
-.stepsWrap {
-  position: relative;
-}
-
-.stepsWave {
-  position: absolute;
-  left: 0;
-  top: 34px;
-  opacity: 0.55;
-}
-
-.steps {
-  position: relative;
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: 20px;
-}
-
-.step {
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.stepTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.stepNumber {
-  width: 56px;
-  height: 56px;
-  border-radius: 999px;
-  background: var(--bg);
-  border: 2px solid var(--teal);
-  color: var(--teal-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  font-weight: 800;
-}
-
-.timecode {
-  font: 500 13px var(--font-mono);
-}
-
-.stepTitle {
-  font-size: 22px;
-}
-
-.stepBody {
-  line-height: 1.6;
-}
-
-/* ---------- Trending bands ---------- */
-.bandsBand {
-  background: var(--bg-raised);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.bandsInner {
-  padding-top: 72px;
-  padding-bottom: 72px;
-}
-
-.bandGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-  gap: 20px;
-}
-
-.bandCard {
-  overflow: hidden;
-}
-
-.bandPhoto {
-  height: 170px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: 14px;
-}
-
-.bandPhotoCaption {
-  background: var(--overlay);
-  border-color: transparent;
-  font-size: 12px;
-}
-
-.listenButton {
-  height: 36px;
-  padding: 0 12px;
-  border-radius: 999px;
-  background: var(--overlay);
-  color: var(--text);
-  font-size: 13px;
-}
-
-.bandBody {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.bandIdentity {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-}
-
-.bandRecord {
-  width: 56px;
-  height: 56px;
-  background: repeating-radial-gradient(circle, #161618 0 2px, #232326 2px 3px);
-  margin-top: -48px;
-  border: 3px solid var(--surface);
-  position: relative;
-}
-
-.bandMonogram {
-  width: 28px;
-  height: 28px;
-  font-size: 11px;
-}
-
-.bandNameGroup {
-  flex: 1;
-}
-
-.bandMeta {
-  font-size: 13px;
-}
-
-.bandDescription {
-  font-size: 14px;
-  line-height: 1.55;
-}
-
-.bandFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-/* ---------- Recently joined ---------- */
-.recent {
-  padding-top: 64px;
-  padding-bottom: 64px;
-  gap: 24px;
-}
-
-.recentTitle {
-  font-size: 30px;
-}
-
-.recentGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-  gap: 12px;
-}
-
-.recentTile {
-  padding: 14px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  color: var(--text);
-}
-
-.recentTile:hover {
-  color: var(--text);
-}
-
-.recentAvatar {
-  width: 44px;
-  height: 44px;
-}
-
-.recentText {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-  flex: 1;
-}
-
-.recentName {
-  font-size: 14px;
-}
-
-.recentRole {
-  font-size: 13px;
-}
-
-/* ---------- Call to action ---------- */
-.ctaSection {
-  padding-top: 8px;
-  padding-bottom: 80px;
-}
-
-.cta {
-  position: relative;
-  overflow: hidden;
-  padding: 56px 48px;
-  background: var(--cta-bg);
-  border-color: var(--cta-border);
-}
-
-.ctaWave {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 120px;
-  align-items: flex-end;
-  gap: 4px;
-  opacity: 0.22;
-  padding: 0 8px;
-}
-
-.ctaContent {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.ctaCopy {
-  max-width: 640px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.ctaLabel {
-  color: var(--violet-soft);
-}
-
-.ctaTitle {
-  font-size: 38px;
-  line-height: 1.08;
-}
-
-.ctaLead {
-  font-size: 17px;
-}
-
-/* ---------- Footer ---------- */
-.footer {
-  border-top: 1px solid var(--line);
-  background: var(--bg-sunken);
-}
-
-.footerWave {
-  height: 36px;
-  align-items: flex-end;
-  opacity: 0.35;
-  padding: 0 2px;
-}
-
-.footerInner {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-  align-items: center;
-  padding-top: 36px;
-  padding-bottom: 40px;
-}
-
-.footerBrand {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.footerName {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.footerCopy {
-  font-size: 13px;
-}
-
-.footerNav {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.footerNav a {
-  color: var(--text-muted);
-  font-size: 14px;
-}
-
-.footerNav a:hover {
-  color: var(--text);
-}
-
 /* ---------- Small screens ---------- */
 @media (max-width: 760px) {
-  .container {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
   .heroGrid {
-    padding-top: 48px;
+    padding: 28px 20px 24px;
   }
 
   .vinyl {
@@ -896,9 +422,16 @@
     gap: 16px;
   }
 
-  .spotlightCard,
-  .nowPlaying {
+  /* Stacked on a phone: nothing drags or drifts, so swiping still scrolls. */
+  .slot {
     position: static;
+    cursor: auto;
+    touch-action: auto;
+    translate: none;
+  }
+
+  .playHint {
+    display: none;
   }
 
   .spotlightPrimary,
@@ -906,16 +439,7 @@
     width: calc(50% - 8px);
   }
 
-  .nowPlaying {
+  .nowPlayingSlot {
     width: 100%;
-  }
-
-  .cta {
-    padding: 36px 20px;
-  }
-
-  .ctaTitle,
-  .centeredTitle {
-    font-size: 30px;
   }
 }

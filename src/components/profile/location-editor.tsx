@@ -41,7 +41,13 @@ export function LocationEditor({ profile, onProfile, onClose }: LocationEditorPr
   };
 
   return (
-    <EditorDialog id="edit-location" title="Edit location" lead="Where you're based, and any other areas you can play." pending={pending} onClose={onClose}>
+    <EditorDialog
+      id="edit-location"
+      title="Edit location"
+      lead="Where you're based, and any other areas you can play."
+      pending={pending}
+      onClose={onClose}
+    >
       <form
         className={onboarding.form}
         noValidate

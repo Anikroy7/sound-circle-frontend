@@ -221,7 +221,8 @@ export function MyProfile(): React.JSX.Element {
           profile.profile_completion < 100 && (
             <div className={`alert ${styles.notice}`}>
               <span>
-                <strong>Profile {profile.profile_completion}% complete.</strong> Add an audio sample, a photo or a video to your gallery to stand out in search.
+                <strong>Profile {profile.profile_completion}% complete.</strong> Add an audio sample, a photo or a video to your gallery to stand out
+                in search.
               </span>
               <button type="button" className="btn btn-secondary btn-sm" onClick={() => setEditing("gallery")}>
                 Add media
@@ -234,7 +235,13 @@ export function MyProfile(): React.JSX.Element {
           <div className={page.main}>
             <section className="card panel">
               <PanelHead title="About" onEdit={edit("about")} />
-              {profile.bio ? <p className={`${styles.prose} ${styles.bio}`}>{profile.bio}</p> : <Empty onEdit={edit("about")} action="Write about yourself">No bio yet.</Empty>}
+              {profile.bio ? (
+                <p className={`${styles.prose} ${styles.bio}`}>{profile.bio}</p>
+              ) : (
+                <Empty onEdit={edit("about")} action="Write about yourself">
+                  No bio yet.
+                </Empty>
+              )}
               <div className={styles.factGrid}>
                 <div className={styles.fact}>
                   <span className={styles.factLabel}>Plays</span>
@@ -300,7 +307,11 @@ export function MyProfile(): React.JSX.Element {
             </section>
 
             <section className="card panel">
-              <PanelHead title="Audio samples" onEdit={edit("gallery")} count={profile.audio.length ? `${profile.audio.length} ${profile.audio.length === 1 ? "track" : "tracks"}` : undefined} />
+              <PanelHead
+                title="Audio samples"
+                onEdit={edit("gallery")}
+                count={profile.audio.length ? `${profile.audio.length} ${profile.audio.length === 1 ? "track" : "tracks"}` : undefined}
+              />
               {profile.audio.length ? (
                 <ul className={styles.audioList}>
                   {profile.audio.map((track) => (
@@ -308,7 +319,9 @@ export function MyProfile(): React.JSX.Element {
                       <span className={styles.trackText}>
                         <strong className={styles.trackTitle}>{trackTitle(track.file_name)}</strong>
                         <span className={`muted ${styles.small}`}>
-                          {[track.format.toUpperCase(), track.duration_seconds ? formatDuration(track.duration_seconds) : null].filter(Boolean).join(" · ")}
+                          {[track.format.toUpperCase(), track.duration_seconds ? formatDuration(track.duration_seconds) : null]
+                            .filter(Boolean)
+                            .join(" · ")}
                         </span>
                       </span>
                       <audio controls preload="none" src={track.secure_url} className={styles.audioPlayer}>

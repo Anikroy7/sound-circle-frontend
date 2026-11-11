@@ -28,22 +28,26 @@ function Choice({ name, checked, onChange, title, detail }: ChoiceProps): React.
   );
 }
 
-/** Step 6: two questions, stored as one `BandInterest`. */
+/**
+ * One question: looking for a band or not. "Yes" is stored as open to joining an existing band; an
+ * earlier "rather start a new band" answer is kept while the answer stays "Yes".
+ */
 export function BandInterestStep(): React.JSX.Element {
   const { profile, submit } = useWizard();
   const saved = profile.band_interest;
   const [wantsBand, setWantsBand] = useState<boolean | null>(saved === null ? null : saved !== BAND_INTEREST.NOT_INTERESTED);
-  const [existingBand, setExistingBand] = useState<boolean | null>(
-    saved === BAND_INTEREST.OPEN_TO_EXISTING_BAND ? true : saved === BAND_INTEREST.NEW_BAND_ONLY ? false : null,
-  );
   const [showErrors, setShowErrors] = useState(false);
 
-  const error = wantsBand === null ? "Choose an answer." : wantsBand && existingBand === null ? "Tell us whether you'd join an existing band." : null;
+  const error = wantsBand === null ? "Choose an answer." : null;
 
   const save = (mode: SaveMode): void => {
     setShowErrors(true);
     if (error) return;
-    const value = !wantsBand ? BAND_INTEREST.NOT_INTERESTED : existingBand ? BAND_INTEREST.OPEN_TO_EXISTING_BAND : BAND_INTEREST.NEW_BAND_ONLY;
+    const value = !wantsBand
+      ? BAND_INTEREST.NOT_INTERESTED
+      : saved === BAND_INTEREST.NEW_BAND_ONLY
+        ? BAND_INTEREST.NEW_BAND_ONLY
+        : BAND_INTEREST.OPEN_TO_EXISTING_BAND;
     void submit(mode, () => saveBandInterest(value));
   };
 
@@ -75,28 +79,6 @@ export function BandInterestStep(): React.JSX.Element {
           />
         </div>
       </fieldset>
-
-      {wantsBand && (
-        <fieldset className="fieldset">
-          <legend className="label">Would you join an existing band?</legend>
-          <div className={styles.choices}>
-            <Choice
-              name="existing-band"
-              checked={existingBand === true}
-              onChange={() => setExistingBand(true)}
-              title="Yes, I'd join an existing band"
-              detail="Bands with an open spot can invite you."
-            />
-            <Choice
-              name="existing-band"
-              checked={existingBand === false}
-              onChange={() => setExistingBand(false)}
-              title="I'd rather start a new band"
-              detail="Connect me with musicians forming one."
-            />
-          </div>
-        </fieldset>
-      )}
 
       {showErrors && error && <FieldError id="band-interest-error">{error}</FieldError>}
       <StepActions onSave={save} />

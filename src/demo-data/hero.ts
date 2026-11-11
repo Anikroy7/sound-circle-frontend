@@ -1,19 +1,4 @@
-import type { SelectOption } from "@/types/common";
 import type { NowPlaying, SpotlightCard } from "@/types/landing";
-
-export const searchInstruments: SelectOption[] = [
-  { value: "drums", label: "Drummer" },
-  { value: "lead-guitar", label: "Lead guitarist" },
-  { value: "bass", label: "Bassist" },
-  { value: "vocals", label: "Vocalist" },
-];
-
-export const searchAreas: SelectOption[] = [
-  { value: "mirpur-dhaka", label: "Mirpur, Dhaka" },
-  { value: "dhanmondi-dhaka", label: "Dhanmondi, Dhaka" },
-  { value: "chattogram", label: "Chattogram" },
-  { value: "sylhet", label: "Sylhet" },
-];
 
 /** The two floating photo cards beside the record, in display order. */
 export const spotlightCards: SpotlightCard[] = [

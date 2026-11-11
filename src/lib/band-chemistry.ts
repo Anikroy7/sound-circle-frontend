@@ -13,7 +13,8 @@ export const FAMILIES: Record<InstrumentFamily, { label: string; icon: string }>
   9: { label: "Electronic", icon: "note" },
 };
 
-export const familyInfo = (family: InstrumentFamily | null): { label: string; icon: string } => (family ? FAMILIES[family] : { label: "Other", icon: "note" });
+export const familyInfo = (family: InstrumentFamily | null): { label: string; icon: string } =>
+  family ? FAMILIES[family] : { label: "Other", icon: "note" };
 
 export const MILESTONES: Record<BandMilestone, { title: string; detail: string }> = {
   1: { title: "First Member Joined", detail: "Someone joined the founder" },

@@ -6,7 +6,8 @@ import { tones } from "@/lib/tones";
 import type { MediaItem, VideoLink } from "@/types/profile";
 
 /** YouTube serves a still for every video; Vimeo and Facebook need an API call, so they get the striped placeholder. */
-const videoStill = (video: VideoLink): string | null => (video.provider === 1 ? `https://i.ytimg.com/vi/${video.external_video_id}/hqdefault.jpg` : null);
+const videoStill = (video: VideoLink): string | null =>
+  video.provider === 1 ? `https://i.ytimg.com/vi/${video.external_video_id}/hqdefault.jpg` : null;
 
 /** Photos as square thumbnails, each opening the full-size image in a new tab. `small` fits a sidebar. */
 export function PhotoGrid({ photos, size = "large" }: { photos: MediaItem[]; size?: "large" | "small" }): React.JSX.Element {
@@ -15,7 +16,11 @@ export function PhotoGrid({ photos, size = "large" }: { photos: MediaItem[]; siz
       {photos.map((photo) => (
         <a key={photo.id} href={photo.secure_url} target="_blank" rel="noopener noreferrer" className={styles.photoLink}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={cloudinaryThumbnail(photo.secure_url, size === "large" ? 480 : 160)} alt={photo.file_name ?? "Performance photo"} loading="lazy" />
+          <img
+            src={cloudinaryThumbnail(photo.secure_url, size === "large" ? 480 : 160)}
+            alt={photo.file_name ?? "Performance photo"}
+            loading="lazy"
+          />
         </a>
       ))}
     </div>
@@ -30,7 +35,14 @@ export function VideoTiles({ videos, compact = false }: { videos: VideoLink[]; c
         const still = videoStill(video);
         const platform = VIDEO_PROVIDER_NAMES[video.provider];
         return (
-          <a key={video.id} href={video.url} target="_blank" rel="noopener noreferrer" className={styles.video} aria-label={`Watch on ${platform} (opens in a new tab)`}>
+          <a
+            key={video.id}
+            href={video.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.video}
+            aria-label={`Watch on ${platform} (opens in a new tab)`}
+          >
             <span className={`photo-placeholder ${styles.videoThumb}`} style={{ backgroundColor: tones[index % 2 ? "teal" : "violet"].tint }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               {still && <img src={still} alt="" loading="lazy" className={styles.videoStill} />}

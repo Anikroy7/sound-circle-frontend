@@ -9,8 +9,7 @@ const ALREADY_SMALL = 600 * 1024;
 /** Decoding needs width × height × 4 bytes of memory, so absurdly large sources are refused up front. */
 export const MAX_SOURCE_PHOTO_BYTES = 40 * 1024 * 1024;
 
-const toBlob = (canvas: HTMLCanvasElement, type: string): Promise<Blob | null> =>
-  new Promise((resolve) => canvas.toBlob(resolve, type, QUALITY));
+const toBlob = (canvas: HTMLCanvasElement, type: string): Promise<Blob | null> => new Promise((resolve) => canvas.toBlob(resolve, type, QUALITY));
 
 const renamed = (name: string, extension: string): string => `${name.replace(/\.[^.]+$/, "") || "photo"}.${extension}`;
 

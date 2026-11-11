@@ -100,7 +100,14 @@ export function OpenRolesPanel({ band, onBand, onApply }: OpenRolesPanelProps): 
                 </option>
               ))}
           </select>
-          <input className="input" aria-label="Note" placeholder="Note (optional)" maxLength={500} value={note} onChange={(event) => setNote(event.target.value)} />
+          <input
+            className="input"
+            aria-label="Note"
+            placeholder="Note (optional)"
+            maxLength={500}
+            value={note}
+            onChange={(event) => setNote(event.target.value)}
+          />
           <button type="submit" className="btn btn-primary" disabled={pending || !instrumentId}>
             Add
           </button>

@@ -92,7 +92,12 @@ export function VideoLinksEditor({ urls, onChange, limit, onDraftChange, draftEr
                 <a href={/^https?:\/\//i.test(url) ? url : `https://${url}`} target="_blank" rel="noopener noreferrer" className={styles.videoUrl}>
                   {url}
                 </a>
-                <button type="button" className={styles.removeButton} onClick={() => onChange(urls.filter((other) => other !== url))} aria-label={`Remove ${url}`}>
+                <button
+                  type="button"
+                  className={styles.removeButton}
+                  onClick={() => onChange(urls.filter((other) => other !== url))}
+                  aria-label={`Remove ${url}`}
+                >
                   Remove
                 </button>
               </li>

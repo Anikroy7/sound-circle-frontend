@@ -7,7 +7,14 @@ import { VideoLinksEditor } from "@/components/onboarding/media/video-links-edit
 import styles from "@/components/onboarding/onboarding.module.css";
 import { StepActions } from "@/components/onboarding/step-actions";
 import { useWizard, type SaveMode } from "@/components/onboarding/wizard-context";
-import { apiErrorMessage, completeBandExperience, profileUploadEndpoints, createBandExperience, removeBandExperience, updateBandExperience } from "@/lib/api";
+import {
+  apiErrorMessage,
+  completeBandExperience,
+  profileUploadEndpoints,
+  createBandExperience,
+  removeBandExperience,
+  updateBandExperience,
+} from "@/lib/api";
 import { LIMITS, VIDEO_PROVIDER_NAMES } from "@/lib/profile-steps";
 import type { BandExperience } from "@/types/profile";
 
@@ -32,10 +39,12 @@ function BandForm({ band, onDone, onDirtyChange }: BandFormProps): React.JSX.Ele
 
   const nameError = name.trim() ? null : "Enter the band's name.";
   const roleError = role.trim() ? null : "Enter your role or what you played.";
-  const touch = <T,>(setter: (value: T) => void) => (value: T) => {
-    setter(value);
-    onDirtyChange(true);
-  };
+  const touch =
+    <T,>(setter: (value: T) => void) =>
+    (value: T) => {
+      setter(value);
+      onDirtyChange(true);
+    };
 
   const save = async (): Promise<void> => {
     setShowErrors(true);
@@ -284,7 +293,9 @@ export function BandExperienceStep(): React.JSX.Element {
       </fieldset>
 
       {answer === false && bands.length > 0 && (
-        <FieldError id="bands-conflict">You still have {bands.length === 1 ? "a band" : `${bands.length} bands`} listed below. Remove them, or choose Yes.</FieldError>
+        <FieldError id="bands-conflict">
+          You still have {bands.length === 1 ? "a band" : `${bands.length} bands`} listed below. Remove them, or choose Yes.
+        </FieldError>
       )}
 
       {(answer === true || bands.length > 0) && (

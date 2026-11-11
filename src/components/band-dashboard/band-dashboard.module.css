@@ -156,8 +156,8 @@
   height: 20px;
   padding: 0 6px;
   border-radius: 999px;
-  background: var(--violet);
-  color: var(--violet-ink);
+  background: var(--teal);
+  color: var(--teal-ink);
   font: 700 11px var(--font-body);
   display: inline-flex;
   align-items: center;

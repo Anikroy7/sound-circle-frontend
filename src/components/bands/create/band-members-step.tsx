@@ -14,7 +14,8 @@ export function BandMembersStep(): React.JSX.Element {
   return (
     <>
       <p className={`muted ${styles.stepLead}`}>
-        Add the people in the band: find them on SoundCircle, or add someone who isn&apos;t on it yet. You can invite more members later from the band&apos;s page.
+        Add the people in the band: find them on SoundCircle, or add someone who isn&apos;t on it yet. You can invite more members later from the
+        band&apos;s page.
       </p>
       <MembersEditor band={band} onBand={setBand} />
       <div className={styles.actionsRow}>

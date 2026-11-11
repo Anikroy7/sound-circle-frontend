@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { BandDashboard } from "@/components/band-dashboard/band-dashboard";
-import { SiteHeader } from "@/components/layout/site-header";
-import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = { title: "Band dashboard" };
 
@@ -15,7 +13,6 @@ async function DashboardRoute({ params }: { params: PageProps<"/bands/[slug]/man
 export default function BandDashboardPage({ params }: PageProps<"/bands/[slug]/manage">): React.JSX.Element {
   return (
     <>
-      <SiteHeader activeHref={routes.dashboard} />
       <Suspense>
         <DashboardRoute params={params} />
       </Suspense>

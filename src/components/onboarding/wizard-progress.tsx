@@ -1,60 +1,55 @@
 import Link from "next/link";
 import styles from "@/components/onboarding/onboarding.module.css";
-import { PROFILE_STEPS } from "@/lib/profile-steps";
+import { SETUP_STAGES, stageFirstStep, stageLastStep } from "@/lib/profile-steps";
 import { routes } from "@/lib/routes";
 
 interface WizardProgressProps {
-  /** 1–8, the step on screen. */
+  /** 1–4, the page on screen. */
   current: number;
-  /** The last completed step (`setup_step`). */
-  completed: number;
+  /** The last API step saved (`setup_step`). */
+  setupStep: number;
   /** 0–100. */
   completion: number;
 }
 
 /**
- * "Step 3 of 8 · Instruments", eight segments and the overall completion. Any step already reached is
- * a link, so the musician can go back and change an answer without walking through the others.
+ * The four pages as a row of named steps, with the overall completion. A page already reached is a
+ * link, so the musician can go back and change an answer.
  */
-export function WizardProgress({ current, completed, completion }: WizardProgressProps): React.JSX.Element {
+export function WizardProgress({ current, setupStep, completion }: WizardProgressProps): React.JSX.Element {
   return (
     <nav className={styles.progress} aria-label="Profile setup progress">
-      <div className={styles.progressTop}>
-        <span className={`label ${styles.stepCount}`}>
-          Step {current} of {PROFILE_STEPS.length} · {PROFILE_STEPS[current - 1].title}
-        </span>
-        <span className="muted">
-          <strong>{completion}%</strong> complete
-        </span>
-      </div>
-      <ol className={styles.segments}>
-        {PROFILE_STEPS.map((step, index) => {
+      <ol className={styles.stages}>
+        {SETUP_STAGES.map((stage, index) => {
           const number = index + 1;
-          const state = number === current ? "current" : number <= completed ? "done" : "todo";
-          const bar = (
-            <span
-              className={`${styles.segment} ${state === "done" ? styles.segmentDone : ""} ${state === "current" ? styles.segmentCurrent : ""}`}
-              aria-hidden="true"
-            />
+          const state = number === current ? "current" : setupStep >= stageLastStep(stage) ? "done" : "todo";
+          const reachable = number !== current && setupStep + 1 >= stageFirstStep(stage);
+          const body = (
+            <>
+              <span className={styles.stageDot} aria-hidden="true">
+                {state === "done" ? "✓" : number}
+              </span>
+              <span className={styles.stageName}>{stage.title}</span>
+            </>
           );
-          const label = `Step ${number}: ${step.title}${state === "done" ? " (done)" : state === "current" ? " (current)" : ""}`;
-
-          // Reachable = done, or the next one to do.
           return (
-            <li key={step.slug} title={step.title}>
-              {number !== current && number <= completed + 1 ? (
-                <Link href={routes.onboarding.step(step.slug)} className={styles.segmentLink} aria-label={label}>
-                  {bar}
+            <li key={stage.slug} className={styles.stageItem} data-state={state}>
+              {reachable ? (
+                <Link href={routes.onboarding.step(stage.slug)} className={styles.stageLink}>
+                  {body}
                 </Link>
               ) : (
-                <span aria-label={label} aria-current={state === "current" ? "step" : undefined}>
-                  {bar}
+                <span className={styles.stageLink} aria-current={state === "current" ? "step" : undefined}>
+                  {body}
                 </span>
               )}
             </li>
           );
         })}
       </ol>
+      <div className={styles.meter} aria-label={`Profile ${completion}% complete`}>
+        <span className={styles.meterBar} style={{ width: `${completion}%` }} />
+      </div>
     </nav>
   );
 }

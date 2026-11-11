@@ -32,10 +32,15 @@ export function MembershipCardView({ card }: { card: CardData }): React.JSX.Elem
         </span>
         <span className={styles.cardKicker}>SoundCircle</span>
       </div>
-      <Waveform bars={WAVE} color="#93c5fd" className={styles.cardWave} />
+      <Waveform bars={WAVE} color="#fdba74" className={styles.cardWave} />
       <div>
         <div className={styles.cardBottom}>
-          <Avatar initials={initialsOf(card.member.name)} tone={toneFor(card.member.user_id ?? card.band.id)} size={60} photoUrl={card.member.photo_url} />
+          <Avatar
+            initials={initialsOf(card.member.name)}
+            tone={toneFor(card.member.user_id ?? card.band.id)}
+            size={60}
+            photoUrl={card.member.photo_url}
+          />
           <span className={styles.cardWho}>
             <span className={styles.cardName}>{card.member.name}</span>
             <span className={styles.cardRole}>{role}</span>

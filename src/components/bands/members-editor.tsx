@@ -135,7 +135,13 @@ function MemberSearch({ band, onBand, full }: { band: Band; onBand: (band: Band)
             <span className="label">
               Their role or instrument <span className="muted">(optional)</span>
             </span>
-            <input className="input" value={position} maxLength={BAND_LIMITS.position} placeholder="e.g. Lead guitar" onChange={(event) => setPosition(event.target.value)} />
+            <input
+              className="input"
+              value={position}
+              maxLength={BAND_LIMITS.position}
+              placeholder="e.g. Lead guitar"
+              onChange={(event) => setPosition(event.target.value)}
+            />
           </label>
           {addError && (
             <span className="field-error" role="alert">
@@ -282,7 +288,12 @@ function ExternalMemberForm({ band, onBand, full }: { band: Band; onBand: (band:
           {addError}
         </span>
       )}
-      <button type="button" className={`btn btn-secondary btn-sm ${styles.alignStart}`} onClick={() => void add()} disabled={adding || !!photoStatus || full}>
+      <button
+        type="button"
+        className={`btn btn-secondary btn-sm ${styles.alignStart}`}
+        onClick={() => void add()}
+        disabled={adding || !!photoStatus || full}
+      >
         {adding ? "Adding…" : "Add member"}
       </button>
     </section>
@@ -324,7 +335,12 @@ export function MembersEditor({ band, onBand }: { band: Band; onBand: (band: Ban
         <ul className={styles.lineup} aria-live="polite">
           {band.members.map((member) => (
             <li key={member.id} className={`inset ${styles.lineupRow}`}>
-              <Avatar initials={initialsOf(member.name)} tone={member.user_id ? toneFor(member.user_id) : "slate"} size={40} photoUrl={member.photo_url} />
+              <Avatar
+                initials={initialsOf(member.name)}
+                tone={member.user_id ? toneFor(member.user_id) : "slate"}
+                size={40}
+                photoUrl={member.photo_url}
+              />
               <span className={styles.candidateText}>
                 <strong>{member.name}</strong>
                 <span className={`muted ${styles.small}`}>{member.position ?? "Role not set"}</span>
@@ -345,7 +361,12 @@ export function MembersEditor({ band, onBand }: { band: Band; onBand: (band: Ban
                     </button>
                   </span>
                 ) : (
-                  <button type="button" className="btn btn-ghost btn-sm" onClick={() => setConfirming(member.id)} aria-label={`Remove ${member.name}`}>
+                  <button
+                    type="button"
+                    className="btn btn-ghost btn-sm"
+                    onClick={() => setConfirming(member.id)}
+                    aria-label={`Remove ${member.name}`}
+                  >
                     Remove
                   </button>
                 ))}

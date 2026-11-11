@@ -57,7 +57,16 @@ let nextJobKey = 0;
  * by the API — which re-checks size and type against Cloudinary itself. Up to three transfers run at
  * once, each with its own progress bar and error.
  */
-export function MediaUploader<R>({ mediaType, endpoints, items, limit, label, hint, onSaved, onBusyChange }: MediaUploaderProps<R>): React.JSX.Element {
+export function MediaUploader<R>({
+  mediaType,
+  endpoints,
+  items,
+  limit,
+  label,
+  hint,
+  onSaved,
+  onBusyChange,
+}: MediaUploaderProps<R>): React.JSX.Element {
   const kind = KINDS[mediaType];
   const inputId = useId();
   const input = useRef<HTMLInputElement>(null);
@@ -74,7 +83,8 @@ export function MediaUploader<R>({ mediaType, endpoints, items, limit, label, hi
   const inFlight = jobs.filter((job) => job.status !== "error").length;
   const room = limit - items.length - inFlight;
 
-  const patch = (key: number, change: Partial<Job>): void => setJobs((current) => current.map((job) => (job.key === key ? { ...job, ...change } : job)));
+  const patch = (key: number, change: Partial<Job>): void =>
+    setJobs((current) => current.map((job) => (job.key === key ? { ...job, ...change } : job)));
   const fail = (key: number, message: string): void => patch(key, { status: "error", message });
 
   const saveInOrder = (publicId: string, fileName: string): Promise<R> => {
@@ -111,7 +121,13 @@ export function MediaUploader<R>({ mediaType, endpoints, items, limit, label, hi
     for (const file of picked) {
       const key = nextJobKey++;
       if (!kind.formats.includes(extension(file.name))) {
-        rejected.push({ key, name: file.name, progress: 0, status: "error", message: `Not a supported ${kind.noun}. Use ${kind.formats.join(", ")}.` });
+        rejected.push({
+          key,
+          name: file.name,
+          progress: 0,
+          status: "error",
+          message: `Not a supported ${kind.noun}. Use ${kind.formats.join(", ")}.`,
+        });
       } else if (file.size > (mediaType === 1 ? MAX_SOURCE_PHOTO_BYTES : LIMITS.fileBytes)) {
         // A photo is checked against 10 MB again after shrinking; most camera photos end far below it.
         rejected.push({ key, name: file.name, progress: 0, status: "error", message: tooBig(file.size) });
@@ -122,7 +138,11 @@ export function MediaUploader<R>({ mediaType, endpoints, items, limit, label, hi
       }
     }
 
-    setJobs((current) => [...current, ...accepted.map(({ file, key }) => ({ key, name: file.name, progress: 0, status: "queued" as const })), ...rejected]);
+    setJobs((current) => [
+      ...current,
+      ...accepted.map(({ file, key }) => ({ key, name: file.name, progress: 0, status: "queued" as const })),
+      ...rejected,
+    ]);
     if (!accepted.length) return;
 
     onBusyChange?.(true);
@@ -197,7 +217,11 @@ export function MediaUploader<R>({ mediaType, endpoints, items, limit, label, hi
               <span className={styles.queueHead}>
                 <span className={styles.fileName}>{job.name}</span>
                 {job.status === "error" ? (
-                  <button type="button" className={styles.removeButton} onClick={() => setJobs((current) => current.filter((other) => other.key !== job.key))}>
+                  <button
+                    type="button"
+                    className={styles.removeButton}
+                    onClick={() => setJobs((current) => current.filter((other) => other.key !== job.key))}
+                  >
                     Dismiss
                   </button>
                 ) : (
@@ -239,11 +263,14 @@ export function MediaUploader<R>({ mediaType, endpoints, items, limit, label, hi
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={cloudinaryThumbnail(item.secure_url)} alt={item.file_name ?? "Performance photo"} loading="lazy" />
               {confirming === item.id ? (
-                <span className={`card ${styles.photoConfirm}`}>
-                  {confirmRow(item)}
-                </span>
+                <span className={`card ${styles.photoConfirm}`}>{confirmRow(item)}</span>
               ) : (
-                <button type="button" className={styles.photoRemove} onClick={() => setConfirming(item.id)} aria-label={`Remove ${item.file_name ?? "photo"}`}>
+                <button
+                  type="button"
+                  className={styles.photoRemove}
+                  onClick={() => setConfirming(item.id)}
+                  aria-label={`Remove ${item.file_name ?? "photo"}`}
+                >
                   ×
                 </button>
               )}
@@ -261,7 +288,12 @@ export function MediaUploader<R>({ mediaType, endpoints, items, limit, label, hi
                 {confirming === item.id ? (
                   confirmRow(item)
                 ) : (
-                  <button type="button" className={styles.removeButton} onClick={() => setConfirming(item.id)} aria-label={`Remove ${item.file_name ?? "audio sample"}`}>
+                  <button
+                    type="button"
+                    className={styles.removeButton}
+                    onClick={() => setConfirming(item.id)}
+                    aria-label={`Remove ${item.file_name ?? "audio sample"}`}
+                  >
                     Remove
                   </button>
                 )}

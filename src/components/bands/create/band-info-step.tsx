@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FieldError } from "@/components/auth/auth-parts";
 import { useBandWizard } from "@/components/bands/create/band-wizard";
-import { PracticeLocationSelect, type PracticeLocation } from "@/components/bands/create/practice-location-select";
+import { GenreSelect } from "@/components/forms/genre-select";
+import { LocationSearch, type ChosenLocation } from "@/components/forms/location-search";
 import styles from "@/components/bands/bands.module.css";
-import { GenrePicker } from "@/components/onboarding/steps/genres-step";
 import onboarding from "@/components/onboarding/onboarding.module.css";
 import { Avatar } from "@/components/ui/avatar";
 import { ApiError, apiErrorMessage, getBandLogoTicket, saveBandDraft, setBandLogo } from "@/lib/api";
@@ -37,7 +37,7 @@ export function BandInfoStep(): React.JSX.Element {
 
   const [name, setName] = useState(band?.name ?? "");
   const [genreIds, setGenreIds] = useState<number[]>(band?.genres.map((genre) => genre.id) ?? []);
-  const [location, setLocation] = useState<PracticeLocation | null>(band?.location ? { id: band.location.id, label: band.location.label } : null);
+  const [location, setLocation] = useState<ChosenLocation | null>(band?.location ? { id: band.location.id, label: band.location.label } : null);
   const [bio, setBio] = useState(band?.bio ?? "");
   const [bandType, setBandType] = useState<BandType | null>(band?.band_type ?? null);
 
@@ -60,7 +60,11 @@ export function BandInfoStep(): React.JSX.Element {
   const trimmedName = name.trim();
   const bioLength = bio.trim().length;
   const errors = {
-    name: !trimmedName ? "Enter the band's name." : trimmedName.length < BAND_LIMITS.nameMin ? `Use at least ${BAND_LIMITS.nameMin} characters.` : null,
+    name: !trimmedName
+      ? "Enter the band's name."
+      : trimmedName.length < BAND_LIMITS.nameMin
+        ? `Use at least ${BAND_LIMITS.nameMin} characters.`
+        : null,
     genres: genreIds.length ? null : "Pick at least one genre the band performs.",
     location: location ? null : "Choose where the band practises.",
     bio: !bioLength
@@ -129,7 +133,9 @@ export function BandInfoStep(): React.JSX.Element {
         setLogoStatus(null);
         setPending(false);
         setPendingLogo(null);
-        return setLogoError(`Your band is saved, but the logo didn't upload: ${failure instanceof UploadError ? failure.message : apiErrorMessage(failure)}`);
+        return setLogoError(
+          `Your band is saved, but the logo didn't upload: ${failure instanceof UploadError ? failure.message : apiErrorMessage(failure)}`,
+        );
       }
     }
     router.push(routes.createBandStep.members);
@@ -151,7 +157,14 @@ export function BandInfoStep(): React.JSX.Element {
           <span className="label">
             Band logo <span className="muted">(optional)</span>
           </span>
-          <Avatar initials={trimmedName ? initialsOf(trimmedName) : "?"} tone="violet" size={104} shape="square" photoUrl={logoUrl} className="display" />
+          <Avatar
+            initials={trimmedName ? initialsOf(trimmedName) : "?"}
+            tone="violet"
+            size={104}
+            shape="square"
+            photoUrl={logoUrl}
+            className="display"
+          />
           <input
             ref={input}
             type="file"
@@ -217,10 +230,12 @@ export function BandInfoStep(): React.JSX.Element {
         </div>
       </div>
 
-      <GenrePicker
-        id="band-genres"
-        legend="Music genres"
-        hint="Every genre the band performs."
+      <GenreSelect
+        label={
+          <>
+            Genres <span className={styles.required}>*</span>
+          </>
+        }
         genres={genres}
         selected={genreIds}
         onChange={setGenreIds}
@@ -228,7 +243,17 @@ export function BandInfoStep(): React.JSX.Element {
         error={shown("genres")}
       />
 
-      <PracticeLocationSelect value={location} onChange={setLocation} error={shown("location")} />
+      <LocationSearch
+        label={
+          <>
+            Practice location <span className={styles.required}>*</span>
+          </>
+        }
+        hint="Any level works: a division, district, upazila or neighbourhood."
+        value={location}
+        onChange={setLocation}
+        error={shown("location")}
+      />
 
       <label className="field">
         <span className="label">

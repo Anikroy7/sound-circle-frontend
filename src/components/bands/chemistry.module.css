@@ -23,8 +23,8 @@
 }
 
 .slotNeeded {
-  border: 1px dashed var(--violet);
-  background: var(--chip-violet-bg);
+  border: 1px dashed var(--teal);
+  background: var(--chip-teal-bg);
 }
 
 .slotHead {
@@ -40,7 +40,7 @@
 }
 
 .slotNeeded .slotHead {
-  color: var(--violet-soft);
+  color: var(--teal-soft);
 }
 
 .slotCount {
@@ -75,14 +75,14 @@
 
 .dots .dotNeeded {
   background: transparent;
-  border: 1px dashed var(--violet);
+  border: 1px dashed var(--teal);
 }
 
 .neededTag {
   font: 600 11px var(--font-body);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--violet-soft);
+  color: var(--teal-soft);
 }
 
 .summary {
@@ -118,7 +118,7 @@
   justify-content: center;
   font: 700 16px var(--font-display);
   color: var(--teal-ink);
-  background: linear-gradient(135deg, var(--teal), var(--violet));
+  background: linear-gradient(135deg, var(--teal), var(--teal-pale));
   box-shadow: 0 0 0 3px var(--chip-teal-bg);
 }
 
@@ -348,9 +348,8 @@
   overflow: hidden;
   color: #ececee;
   background:
-    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.26), transparent 55%),
-    radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.24), transparent 55%),
-    #111113;
+    radial-gradient(circle at 0% 0%, rgba(249, 115, 22, 0.3), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(234, 88, 12, 0.14), transparent 55%), #12100f;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
   container-type: inline-size;
@@ -382,7 +381,7 @@
   font: 600 10px var(--font-mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #93c5fd;
+  color: #fdba74;
 }
 
 .cardWave {
@@ -419,7 +418,7 @@
 
 .cardRole {
   font-size: 14px;
-  color: #c4b5fd;
+  color: #fed7aa;
 }
 
 .cardMeta {

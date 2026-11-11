@@ -25,6 +25,11 @@ export interface WizardContextValue {
    * wizard: the actions become Cancel · Save changes, and saving stays on the page.
    */
   editing?: { onCancel: () => void };
+  /**
+   * Set when the form is one section of a setup page with a shared action bar: its own actions don't
+   * render, and instead hand the page this section's save and whether it is busy (an upload).
+   */
+  stage?: { register: (step: number, save: (mode: SaveMode) => void, busyLabel: string | null) => void };
 }
 
 export const WizardContext = createContext<WizardContextValue | null>(null);

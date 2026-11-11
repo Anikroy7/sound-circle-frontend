@@ -68,17 +68,21 @@ export function ProfilePhoto({ photoUrl, name, userId, size, onProfile, onBusyCh
 
     const extension = original.name.split(".").pop()?.toLowerCase() ?? "";
     if (!FORMATS.includes(extension)) return setError("Use a JPG, PNG or WebP photo.");
-    if (original.size > MAX_SOURCE_PHOTO_BYTES) return setError(`${formatBytes(original.size)} is too large. Use a photo under ${formatBytes(MAX_SOURCE_PHOTO_BYTES)}.`);
+    if (original.size > MAX_SOURCE_PHOTO_BYTES)
+      return setError(`${formatBytes(original.size)} is too large. Use a photo under ${formatBytes(MAX_SOURCE_PHOTO_BYTES)}.`);
 
-    void run(async () => {
-      const file = await shrinkImage(original, PHOTO_EDGE);
-      if (file.size > LIMITS.fileBytes) throw new UploadError(`${formatBytes(file.size)} is still over 10 MB. Try a smaller photo`);
-      setStatus({ kind: "uploading", progress: 0 });
-      const ticket = await getPhotoTicket();
-      const publicId = await uploadToCloudinary(ticket, file, (progress) => setStatus({ kind: "uploading", progress }));
-      setStatus({ kind: "saving" });
-      return setProfilePhoto(publicId);
-    }, { kind: "preparing" });
+    void run(
+      async () => {
+        const file = await shrinkImage(original, PHOTO_EDGE);
+        if (file.size > LIMITS.fileBytes) throw new UploadError(`${formatBytes(file.size)} is still over 10 MB. Try a smaller photo`);
+        setStatus({ kind: "uploading", progress: 0 });
+        const ticket = await getPhotoTicket();
+        const publicId = await uploadToCloudinary(ticket, file, (progress) => setStatus({ kind: "uploading", progress }));
+        setStatus({ kind: "saving" });
+        return setProfilePhoto(publicId);
+      },
+      { kind: "preparing" },
+    );
   };
 
   const statusText =
@@ -95,7 +99,15 @@ export function ProfilePhoto({ photoUrl, name, userId, size, onProfile, onBusyCh
   return (
     <div className={`${styles.photoField} ${layout === "hero" ? styles.photoFieldHero : ""}`}>
       <span className={styles.photoPreview}>
-        <Avatar initials={initialsOf(name)} tone={toneFor(userId)} size={size} shape="square" variant="tinted" photoUrl={photoUrl} className="display" />
+        <Avatar
+          initials={initialsOf(name)}
+          tone={toneFor(userId)}
+          size={size}
+          shape="square"
+          variant="tinted"
+          photoUrl={photoUrl}
+          className="display"
+        />
         {busy && (
           <span className={styles.photoBusy} aria-hidden="true">
             {status.kind === "uploading" ? `${Math.round(status.progress * 100)}%` : "…"}

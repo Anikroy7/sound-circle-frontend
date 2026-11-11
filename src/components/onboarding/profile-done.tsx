@@ -58,7 +58,14 @@ export function ProfileDone(): React.JSX.Element {
           <span className="muted">Profile complete</span>
           <strong>{profile.profile_completion}%</strong>
         </div>
-        <div className="progress" role="progressbar" aria-label="Profile completion" aria-valuemin={0} aria-valuemax={100} aria-valuenow={profile.profile_completion}>
+        <div
+          className="progress"
+          role="progressbar"
+          aria-label="Profile completion"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={profile.profile_completion}
+        >
           <span style={{ width: `${profile.profile_completion}%` }} />
         </div>
       </div>
@@ -67,7 +74,7 @@ export function ProfileDone(): React.JSX.Element {
           View my profile
         </Link>
         {galleryEmpty ? (
-          <Link className="btn btn-secondary" href={routes.onboarding.step("gallery")}>
+          <Link className="btn btn-secondary" href={routes.onboarding.step("showcase")}>
             Add audio &amp; photos
           </Link>
         ) : (

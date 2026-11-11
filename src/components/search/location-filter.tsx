@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import styles from "@/components/search/search.module.css";
+import { ChipSelect } from "@/components/search/search-parts";
 import { getLocations } from "@/lib/api";
 import type { LocationNode } from "@/types/location";
 
@@ -10,6 +10,8 @@ interface LocationFilterProps {
   districtId: string;
   onChange: (divisionId: string, districtId: string) => void;
 }
+
+const asOptions = (rows: LocationNode[]): { value: number; label: string }[] => rows.map((row) => ({ value: row.id, label: row.name }));
 
 /** Division, then (once one is chosen) district. The search matches the narrower of the two. */
 export function LocationFilter({ divisionId, districtId, onChange }: LocationFilterProps): React.JSX.Element {
@@ -36,23 +38,15 @@ export function LocationFilter({ divisionId, districtId, onChange }: LocationFil
 
   return (
     <>
-      <select className={`input ${styles.select}`} aria-label="Division" value={divisionId} onChange={(event) => onChange(event.target.value, "")}>
-        <option value="">Any division</option>
-        {divisions.map((division) => (
-          <option key={division.id} value={division.id}>
-            {division.name}
-          </option>
-        ))}
-      </select>
+      <ChipSelect label="Division" any="Anywhere" value={divisionId} onChange={(value) => onChange(value, "")} options={asOptions(divisions)} />
       {divisionId && (
-        <select className={`input ${styles.select}`} aria-label="District" value={districtId} onChange={(event) => onChange(divisionId, event.target.value)}>
-          <option value="">Any district</option>
-          {districtRows.map((district) => (
-            <option key={district.id} value={district.id}>
-              {district.name}
-            </option>
-          ))}
-        </select>
+        <ChipSelect
+          label="District"
+          any="Any district"
+          value={districtId}
+          onChange={(value) => onChange(divisionId, value)}
+          options={asOptions(districtRows)}
+        />
       )}
     </>
   );

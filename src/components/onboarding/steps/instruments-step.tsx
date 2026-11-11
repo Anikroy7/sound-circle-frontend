@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { FieldError } from "@/components/auth/auth-parts";
+import { CatalogPicker } from "@/components/onboarding/catalog-picker";
 import styles from "@/components/onboarding/onboarding.module.css";
 import { StepActions } from "@/components/onboarding/step-actions";
 import { useWizard, type SaveMode } from "@/components/onboarding/wizard-context";
+import { instrumentSlug } from "@/components/patterns/tiles";
+import { InstrumentIcon } from "@/components/ui/instrument-icon";
 import { saveInstruments } from "@/lib/api";
 import { LIMITS, SKILL_LEVELS } from "@/lib/profile-steps";
 import type { SkillLevel } from "@/types/profile";
@@ -18,7 +21,6 @@ export function InstrumentsStep(): React.JSX.Element {
   const [showErrors, setShowErrors] = useState(false);
 
   const nameOf = (id: number): string => catalog.instruments.find((instrument) => instrument.id === id)?.name ?? "Instrument";
-  const full = picks.length >= LIMITS.instruments;
   const listError = picks.length ? null : "Pick at least one instrument you play.";
   const missingLevel = picks.some((pick) => !pick.skill_level);
 
@@ -34,7 +36,9 @@ export function InstrumentsStep(): React.JSX.Element {
   const save = (mode: SaveMode): void => {
     setShowErrors(true);
     if (listError || missingLevel) return;
-    void submit(mode, () => saveInstruments(picks.map((pick) => ({ instrument_id: pick.instrument_id, skill_level: pick.skill_level as SkillLevel }))));
+    void submit(mode, () =>
+      saveInstruments(picks.map((pick) => ({ instrument_id: pick.instrument_id, skill_level: pick.skill_level as SkillLevel }))),
+    );
   };
 
   return (
@@ -46,68 +50,73 @@ export function InstrumentsStep(): React.JSX.Element {
         save("next");
       }}
     >
-      <fieldset className="fieldset" aria-describedby="instruments-hint">
-        <legend className="label">Instruments you play</legend>
+      <fieldset className="fieldset" aria-describedby={`instruments-hint${showErrors && listError ? " instruments-error" : ""}`}>
+        <legend className="visually-hidden">Instruments you play</legend>
         <div className={styles.section}>
           <span className={styles.sectionHead}>
             <span id="instruments-hint" className="field-hint">
-              Include your voice if you sing. Up to {LIMITS.instruments}.
+              Search and pick everything you play, your voice included.
             </span>
             <span className={styles.counter}>
               {picks.length} / {LIMITS.instruments}
             </span>
           </span>
-          <div className={styles.chips}>
-            {catalog.instruments.map((instrument) => {
-              const on = picks.some((pick) => pick.instrument_id === instrument.id);
-              return (
-                <button
-                  key={instrument.id}
-                  type="button"
-                  className="toggle-chip"
-                  aria-pressed={on}
-                  disabled={!on && full}
-                  onClick={() => toggle(instrument.id)}
-                >
-                  {instrument.name}
-                </button>
-              );
-            })}
-          </div>
+          <CatalogPicker
+            items={catalog.instruments}
+            selected={picks.map((pick) => pick.instrument_id)}
+            onToggle={toggle}
+            limit={LIMITS.instruments}
+            noun="instruments"
+            placeholder="Search instruments, e.g. guitar, tabla, vocals"
+            showTags={false}
+            describedBy="instruments-hint"
+            invalid={showErrors && !!listError}
+          />
           {showErrors && listError && <FieldError id="instruments-error">{listError}</FieldError>}
         </div>
       </fieldset>
 
       {picks.length > 0 && (
         <div className={styles.section}>
-          <span className="label">How well do you play each?</span>
-          <ul className={`${styles.skillRows} ${styles.queue}`}>
+          <span className="label">Your level on each</span>
+          <ul className={styles.skillList}>
             {picks.map((pick) => {
               const name = nameOf(pick.instrument_id);
               const invalid = showErrors && !pick.skill_level;
               return (
-                <li key={pick.instrument_id} className={`inset ${styles.skillRow}`}>
-                  <div className={styles.skillRowHead}>
+                <li key={pick.instrument_id} className={styles.skillItem} data-invalid={invalid}>
+                  <span className={styles.skillName}>
+                    <InstrumentIcon slug={instrumentSlug(name)} size={18} />
                     <strong>{name}</strong>
-                    <button type="button" className={styles.removeButton} onClick={() => toggle(pick.instrument_id)} aria-label={`Remove ${name}`}>
-                      Remove
-                    </button>
-                  </div>
-                  <div role="radiogroup" aria-label={`Skill level on ${name}`} className={styles.chips} aria-invalid={invalid}>
+                  </span>
+                  <div role="radiogroup" aria-label={`Your level on ${name}`} aria-invalid={invalid} className={styles.segmented}>
                     {SKILL_LEVELS.map((level) => (
                       <button
                         key={level.value}
                         type="button"
                         role="radio"
                         aria-checked={pick.skill_level === level.value}
-                        className="toggle-chip toggle-chip-sm"
+                        className={styles.segment}
                         onClick={() => setLevel(pick.instrument_id, level.value)}
                       >
                         {level.label}
                       </button>
                     ))}
                   </div>
-                  {invalid && <FieldError id={`skill-${pick.instrument_id}-error`}>Choose your level on {name}.</FieldError>}
+                  <button
+                    type="button"
+                    className={styles.removeIcon}
+                    onClick={() => toggle(pick.instrument_id)}
+                    aria-label={`Remove ${name}`}
+                    title="Remove"
+                  >
+                    ×
+                  </button>
+                  {invalid && (
+                    <span className={styles.skillError}>
+                      <FieldError id={`skill-${pick.instrument_id}-error`}>Choose your level on {name}.</FieldError>
+                    </span>
+                  )}
                 </li>
               );
             })}

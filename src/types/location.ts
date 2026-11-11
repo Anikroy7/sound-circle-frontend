@@ -19,5 +19,7 @@ export interface LocationNode {
   longitude: number | null;
   /** Only with `near_location_id`: kilometres from that place's centre. */
   distance_km?: number;
+  /** Only with `search`: the place and the places above it, "Mirpur Model, Dhaka North City Corporation, Dhaka". */
+  label?: string;
 }
 

@@ -45,12 +45,15 @@ export function AvailabilityStep(): React.JSX.Element {
   const [rows, setRows] = useState<Row[]>(() => {
     const saved = profile.availability.filter((slot) => !isAnyDayAnyTime(slot));
     return saved.length
-      ? saved.map((slot) => newRow({ day: slot.day_of_week, anytime: slot.start_time === null, start: slot.start_time ?? "", end: slot.end_time ?? "" }))
+      ? saved.map((slot) =>
+          newRow({ day: slot.day_of_week, anytime: slot.start_time === null, start: slot.start_time ?? "", end: slot.end_time ?? "" }),
+        )
       : [newRow({ day: 5 })];
   });
   const [showErrors, setShowErrors] = useState(false);
 
-  const update = (key: number, patch: Partial<Row>): void => setRows((current) => current.map((row) => (row.key === key ? { ...row, ...patch } : row)));
+  const update = (key: number, patch: Partial<Row>): void =>
+    setRows((current) => current.map((row) => (row.key === key ? { ...row, ...patch } : row)));
   const remove = (key: number): void => setRows((current) => current.filter((row) => row.key !== key));
 
   const signature = (row: Row): string => `${row.day}|${row.anytime ? "" : `${row.start}-${row.end}`}`;
@@ -177,7 +180,11 @@ export function AvailabilityStep(): React.JSX.Element {
           </ul>
           {showErrors && listError && <FieldError id="slots-error">{listError}</FieldError>}
           {rows.length < LIMITS.availabilitySlots && (
-            <button type="button" className={`btn btn-secondary btn-sm ${styles.addButton}`} onClick={() => setRows((current) => [...current, newRow()])}>
+            <button
+              type="button"
+              className={`btn btn-secondary btn-sm ${styles.addButton}`}
+              onClick={() => setRows((current) => [...current, newRow()])}
+            >
               + Add another time
             </button>
           )}

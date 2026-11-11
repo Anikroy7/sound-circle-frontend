@@ -16,16 +16,13 @@ const TYPE_NAMES: Record<LocationType, [singular: string, plural: string]> = {
   6: ["area", "areas"],
 };
 const DIVISIONS = "divisions";
-/** "Nearby" in the summary: same-level places whose centre is within this many km. */
-const NEARBY_RADIUS_KM = 20;
-const nearbyKey = (id: number): string => `near-${id}`;
 
 /** The four cascading steps. Each unlocks once the step before it has a value; `groups` sets the optgroup order. */
-const STEPS: { title: string; waiting: string; hint: string; groups?: LocationType[] }[] = [
-  { title: "Division", waiting: "", hint: "All 8 divisions" },
-  { title: "District", waiting: "Select division first", hint: "Districts are filtered by division" },
-  { title: "City Corporation / Upazila", waiting: "Select district first", hint: "City corporations first, then upazilas", groups: [4, 3] },
-  { title: "Thana / Area", waiting: "Select city corporation / upazila first", hint: "The most specific place", groups: [5, 6] },
+const STEPS: { title: string; groups?: LocationType[] }[] = [
+  { title: "Division" },
+  { title: "District" },
+  { title: "City corporation / Upazila", groups: [4, 3] },
+  { title: "Thana / Area", groups: [5, 6] },
 ];
 
 /** "Dhaka North City Corporation" already says what it is; "Savar" needs "upazila". */
@@ -45,10 +42,13 @@ export interface LocationCascade {
   setPath: (path: LocationNode[]) => void;
   /** "Includes 2 city corporations and 5 upazilas, and everything inside them." / "A single place." */
   describeContents: (node: LocationNode) => string;
-  /** "Nearby: Dhamrai 15.7 km, Singair 16.8 km" — from PostGIS, via `GET /locations?near_location_id=`. */
-  describeNearby: (node: LocationNode) => string;
   /** Rendered by `CascadeSelects`. */
-  selects: { optionsFor: (step: number) => LocationNode[] | undefined; placeholder: (step: number) => string; loadError: string | null; retry: () => void };
+  selects: {
+    optionsFor: (step: number) => LocationNode[] | undefined;
+    placeholder: (step: number) => string;
+    loadError: string | null;
+    retry: () => void;
+  };
 }
 
 /**
@@ -89,7 +89,6 @@ export function useLocationCascade(onPathChange?: (path: LocationNode[]) => void
     if (node) {
       next.push(node);
       if (node.child_count > 0) load(String(node.id), { parent_id: node.id });
-      if (node.latitude !== null) load(nearbyKey(node.id), { near_location_id: node.id, radius_km: NEARBY_RADIUS_KM, level: node.level });
     }
     setPath(next);
     onPathChange?.(next);
@@ -107,20 +106,10 @@ export function useLocationCascade(onPathChange?: (path: LocationNode[]) => void
     return `Includes ${list}, and everything inside them.`;
   };
 
-  const describeNearby = (node: LocationNode): string => {
-    if (node.latitude === null) return "No centre point for this place yet, so no nearby search.";
-    const nearby = lists[nearbyKey(node.id)];
-    if (!nearby) return "Finding nearby places…";
-    const others = nearby.filter((place) => place.id !== node.id).slice(0, 4);
-    return others.length
-      ? `Nearby: ${others.map((place) => `${place.name} ${place.distance_km} km`).join(", ")}`
-      : `Nothing else at this level within ${NEARBY_RADIUS_KM} km.`;
-  };
-
   const placeholder = (step: number): string => {
     const parent = path[step - 1];
     if (step === 0) return lists[DIVISIONS] ? "Select division" : "Loading divisions…";
-    if (!parent) return STEPS[step].waiting;
+    if (!parent) return "";
     if (parent.child_count === 0) return parent.type === CITY_CORPORATION ? "No thanas listed yet" : "No areas listed yet";
     if (!optionsFor(step)) return "Loading…";
     return `All of ${parent.name}`;
@@ -138,7 +127,6 @@ export function useLocationCascade(onPathChange?: (path: LocationNode[]) => void
     choose,
     setPath,
     describeContents,
-    describeNearby,
     selects: { optionsFor, placeholder, loadError, retry },
   };
 }
@@ -160,9 +148,16 @@ function renderOptions(step: number, options: LocationNode[]): React.ReactNode {
   ));
 }
 
-/** The four numbered dropdowns (1 Division → 2 District → 3 City Corporation / Upazila → 4 Thana / Area), and any load error. */
+/**
+ * The dropdowns, two to a row: Division and District first; City corporation / Upazila and then
+ * Thana / Area appear only once the place above them has something inside it. Any load error above.
+ */
 export function CascadeSelects({ cascade, disabled = false }: { cascade: LocationCascade; disabled?: boolean }): React.JSX.Element {
   const { optionsFor, placeholder, loadError, retry } = cascade.selects;
+  const { path } = cascade;
+  // Division and District always show; a deeper one once its parent is chosen and has places inside.
+  const shown = STEPS.filter((_, index) => index < 2 || (path[index - 1] && path[index - 1].child_count > 0));
+
   return (
     <>
       {loadError && (
@@ -174,25 +169,21 @@ export function CascadeSelects({ cascade, disabled = false }: { cascade: Locatio
           </button>
         </span>
       )}
-      <div className="field-row">
-        {STEPS.map((step, index) => {
+      <div className={styles.cascade}>
+        {shown.map((step, index) => {
           const options = optionsFor(index);
           return (
             <label key={step.title} className="field">
-              <span className={`label ${styles.stepLabel}`}>
-                <span className={styles.stepNo}>{index + 1}</span>
-                {step.title}
-              </span>
+              <span className="label">{step.title}</span>
               <select
                 className="input"
-                value={cascade.path[index] ? String(cascade.path[index].id) : ""}
+                value={path[index] ? String(path[index].id) : ""}
                 disabled={!options?.length || disabled}
                 onChange={(event) => cascade.choose(index, event.target.value)}
               >
-                <option value="">{placeholder(index)}</option>
+                <option value="">{placeholder(index) || (index === 1 ? "Choose a division first" : "")}</option>
                 {options && renderOptions(index, options)}
               </select>
-              <span className="field-hint">{step.hint}</span>
             </label>
           );
         })}

@@ -52,4 +52,3 @@ export function uploadToCloudinary(ticket: UploadTicket, file: File, onProgress:
 
 /** A square Cloudinary thumbnail (`c_fill`, auto format and quality) instead of the full-size original. */
 export const cloudinaryThumbnail = (url: string, size = 320): string => url.replace("/upload/", `/upload/c_fill,w_${size},h_${size},q_auto,f_auto/`);
-

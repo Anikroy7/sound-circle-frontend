@@ -16,7 +16,6 @@
 }
 
 .banner {
-  margin-top: 24px;
   display: flex;
   gap: 12px;
   align-items: center;
@@ -34,11 +33,6 @@
 .bannerActions {
   display: flex;
   gap: 8px;
-}
-
-.statusNote {
-  font-size: 14px;
-  color: var(--text-muted);
 }
 
 .bandLinks {
@@ -92,4 +86,16 @@
   flex-direction: column;
   gap: 2px;
   font-size: 14px;
+}
+
+.instrumentArt {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--primary);
 }

@@ -12,7 +12,15 @@ const hasIntro = (member: BandMember): boolean => !!member.intro || member.intro
  * "Meet the band": each member's introduction as a card. Shows nothing until someone has introduced
  * themselves; `onIntroduce` offers the viewer the chance when they're a member who hasn't yet.
  */
-export function MemberIntros({ members, viewerMemberId, introduceHref }: { members: BandMember[]; viewerMemberId: number | null; introduceHref?: string }): React.JSX.Element | null {
+export function MemberIntros({
+  members,
+  viewerMemberId,
+  introduceHref,
+}: {
+  members: BandMember[];
+  viewerMemberId: number | null;
+  introduceHref?: string;
+}): React.JSX.Element | null {
   const introduced = members.filter(hasIntro);
   const me = members.find((member) => member.id === viewerMemberId);
   const invite = me && !hasIntro(me) && introduceHref;
@@ -35,7 +43,12 @@ export function MemberIntros({ members, viewerMemberId, introduceHref }: { membe
           {introduced.map((member) => (
             <article key={member.id} className={styles.introCard}>
               <div className={styles.introHead}>
-                <Avatar initials={initialsOf(member.name)} tone={member.user_id ? toneFor(member.user_id) : "slate"} size={40} photoUrl={member.photo_url} />
+                <Avatar
+                  initials={initialsOf(member.name)}
+                  tone={member.user_id ? toneFor(member.user_id) : "slate"}
+                  size={40}
+                  photoUrl={member.photo_url}
+                />
                 <span>
                   {member.profile_slug ? (
                     <Link href={routes.musician(member.profile_slug)}>

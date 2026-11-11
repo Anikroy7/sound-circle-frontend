@@ -166,7 +166,9 @@ function BandPreview({ band }: { band: Band | null }): React.JSX.Element {
           />
           <strong className={`display ${styles.previewName}`}>{band?.name ?? "Your band"}</strong>
           <span className={`muted ${styles.small}`}>
-            {band ? [band.genres.map((genre) => genre.name).join(", "), band.location?.label, bandTypeLabel(band.band_type)].filter(Boolean).join(" · ") : "Fill in step 1 to see your band card."}
+            {band
+              ? [band.genres.map((genre) => genre.name).join(", "), band.location?.label, bandTypeLabel(band.band_type)].filter(Boolean).join(" · ")
+              : "Fill in step 1 to see your band card."}
           </span>
           {band && (
             <span className={`muted ${styles.small}`}>

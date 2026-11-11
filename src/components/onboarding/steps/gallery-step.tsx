@@ -39,7 +39,7 @@ export function GalleryStep(): React.JSX.Element {
         save("next");
       }}
     >
-      <div className={`card panel`}>
+      <div className={styles.galleryBlock}>
         <MediaUploader
           mediaType={3}
           endpoints={profileUploadEndpoints({ media_type: 3 })}
@@ -51,7 +51,7 @@ export function GalleryStep(): React.JSX.Element {
           onBusyChange={onBusyChange}
         />
       </div>
-      <div className={`card panel`}>
+      <div className={styles.galleryBlock}>
         <MediaUploader
           mediaType={1}
           endpoints={profileUploadEndpoints({ media_type: 1 })}
@@ -63,7 +63,7 @@ export function GalleryStep(): React.JSX.Element {
           onBusyChange={onBusyChange}
         />
       </div>
-      <div className={`card panel`}>
+      <div className={styles.galleryBlock}>
         <VideoLinksEditor
           urls={videoUrls}
           onChange={setVideoUrls}

@@ -1,13 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect } from "react";
 import styles from "@/components/onboarding/onboarding.module.css";
 import { useWizard, type SaveMode } from "@/components/onboarding/wizard-context";
-import { PROFILE_STEPS } from "@/lib/profile-steps";
-import { routes } from "@/lib/routes";
 
 interface StepActionsProps {
-  /** Runs the step's own validation and save. */
+  /** Runs the section's own validation and save. */
   onSave: (mode: SaveMode) => void;
   /** Disables saving while something else is in flight (an upload). */
   busy?: boolean;
@@ -15,33 +13,19 @@ interface StepActionsProps {
 }
 
 /**
- * Back · Save & finish later · Continue, with the step's error above them. Continue is the form's
- * submit button, so Enter in a text field saves and moves on.
+ * A section's save. In setup, the page's action bar saves every section on it, so this only hands
+ * the page the section's save. Editing one section from the profile page, it is Cancel · Save changes.
  */
-export function StepActions({ onSave, busy = false, busyLabel }: StepActionsProps): React.JSX.Element {
-  const { stepNumber, pending, error, editing } = useWizard();
-  const last = stepNumber === PROFILE_STEPS.length;
+export function StepActions({ onSave, busy = false, busyLabel = "Uploading…" }: StepActionsProps): React.JSX.Element | null {
+  const { stepNumber, pending, error, editing, stage } = useWizard();
   const disabled = pending || busy;
 
-  if (editing) {
-    return (
-      <>
-        {error && (
-          <div role="alert" className="alert alert-error">
-            {error}
-          </div>
-        )}
-        <div className={`${styles.actions} ${styles.editActions}`}>
-          <button type="button" className="btn btn-ghost" onClick={editing.onCancel} disabled={disabled}>
-            Cancel
-          </button>
-          <button type="submit" className="btn btn-primary" disabled={disabled}>
-            {busy && busyLabel ? busyLabel : pending ? "Saving…" : "Save changes"}
-          </button>
-        </div>
-      </>
-    );
-  }
+  // A fresh closure each render, so the page always calls the latest one.
+  useEffect(() => {
+    stage?.register(stepNumber, onSave, busy ? busyLabel : null);
+  });
+
+  if (!editing) return null;
 
   return (
     <>
@@ -50,20 +34,13 @@ export function StepActions({ onSave, busy = false, busyLabel }: StepActionsProp
           {error}
         </div>
       )}
-      <div className={styles.actions}>
-        {stepNumber > 1 && (
-          <Link className="btn btn-secondary" href={routes.onboarding.step(PROFILE_STEPS[stepNumber - 2].slug)}>
-            Back
-          </Link>
-        )}
-        <div className={styles.actionsEnd}>
-          <button type="button" className="btn btn-ghost" onClick={() => onSave("later")} disabled={disabled}>
-            Save &amp; finish later
-          </button>
-          <button type="submit" className="btn btn-primary" disabled={disabled}>
-            {busy && busyLabel ? busyLabel : pending ? "Saving…" : last ? "Finish profile" : "Continue"}
-          </button>
-        </div>
+      <div className={`${styles.actions} ${styles.editActions}`}>
+        <button type="button" className="btn btn-ghost" onClick={editing.onCancel} disabled={disabled}>
+          Cancel
+        </button>
+        <button type="submit" className="btn btn-primary" disabled={disabled}>
+          {busy ? busyLabel : pending ? "Saving…" : "Save changes"}
+        </button>
       </div>
     </>
   );

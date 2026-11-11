@@ -2,92 +2,96 @@
 
 :root {
   /*
-   * Clean graphite: neutral greys, a monochrome primary for solid buttons, one blue accent (links,
-   * selection, focus, progress) and violet for secondary highlights (owners, open positions, counts).
-   * ⚠ Token names predate this palette: the `teal*` tokens are the blue accent, `violet*` the secondary.
+   * Black and orange: warm near-black neutrals, one orange brand colour (primary buttons, links,
+   * selection, focus, open positions, counts) and a warm grey secondary (owner chips) that never
+   * competes with it. Text on orange is white, so orange *fills* use the deeper #ea580c in both modes
+   * (a brighter orange under white text is hard to read); the bright oranges are for text on dark only.
+   * ⚠ Token names predate this palette: the `teal*` tokens are the orange accent, `violet*` the warm-grey secondary.
    * Every colour is light-dark(light, dark); `color-scheme` below decides which half applies.
    */
-  --bg: light-dark(#fafafa, #0a0a0b);
-  --bg-raised: light-dark(#f4f4f5, #0f0f11);
-  --bg-sunken: light-dark(#ededf0, #070708);
-  --surface: light-dark(#ffffff, #131315);
-  --surface-2: light-dark(#f4f4f5, #1b1b1e);
-  --surface-2-hover: light-dark(#e9e9ec, #25252a);
-  --surface-hover: light-dark(#f1f1f3, #19191c);
-  --input-bg: light-dark(#ffffff, #0f0f11);
-  --line: light-dark(#ececef, #1e1e22);
-  --border: light-dark(#e4e4e7, #242428);
-  --border-strong: light-dark(#d4d4d8, #2e2e33);
-  --border-hover: light-dark(#a1a1aa, #46464d);
-  --border-accent: light-dark(#c4c4cc, #3a3a41);
-  --text: light-dark(#18181b, #ececee);
-  --text-strong: light-dark(#09090b, #fafafa);
-  --text-soft: light-dark(#3f3f46, #d4d4d8);
-  --text-muted: light-dark(#71717a, #a1a1aa);
+  /* The app shell's backdrop: rounded panels (sidebar, main) sit on it with a small gap. */
+  --canvas: light-dark(#e7e5e4, #000000);
+  --bg: light-dark(#fafaf9, #121110);
+  --bg-raised: light-dark(#f5f5f4, #161514);
+  --bg-sunken: light-dark(#efedeb, #0b0a09);
+  --surface: light-dark(#ffffff, #1a1817);
+  --surface-2: light-dark(#f5f5f4, #242220);
+  --surface-2-hover: light-dark(#ebe9e7, #2e2b29);
+  --surface-hover: light-dark(#f3f2f1, #201e1c);
+  --input-bg: light-dark(#ffffff, #161514);
+  --line: light-dark(#eeecea, #24221f);
+  --border: light-dark(#e7e5e4, #2c2927);
+  --border-strong: light-dark(#d6d3d1, #34312e);
+  --border-hover: light-dark(#a8a29e, #4f4a46);
+  --border-accent: light-dark(#cac5c1, #423e3a);
+  --text: light-dark(#1c1917, #edecea);
+  --text-strong: light-dark(#0c0a09, #fafaf9);
+  --text-soft: light-dark(#44403c, #d6d3d1);
+  --text-muted: light-dark(#78716c, #a8a29e);
 
-  /* Primary: solid buttons. Monochrome, so the accent stays rare and meaningful. */
-  --primary: light-dark(#18181b, #fafafa);
-  --primary-hover: light-dark(#3f3f46, #e4e4e7);
-  --primary-ink: light-dark(#fafafa, #18181b);
+  /* Primary: solid buttons, in the brand orange. */
+  --primary: #ea580c;
+  --primary-hover: #c2410c;
+  --primary-ink: #ffffff;
 
-  /* Accent (blue). */
-  --teal: light-dark(#2563eb, #3b82f6);
-  --teal-soft: light-dark(#2563eb, #60a5fa);
-  --teal-pale: light-dark(#1d4ed8, #93c5fd);
+  /* Accent (orange). */
+  --teal: #ea580c;
+  --teal-soft: light-dark(#c2410c, #fb923c);
+  --teal-pale: light-dark(#9a3412, #fdba74);
   --teal-ink: #ffffff;
-  /* Secondary (violet) and status amber. */
-  --violet: light-dark(#7c3aed, #8b5cf6);
-  --violet-soft: light-dark(#6d28d9, #c4b5fd);
-  --amber-soft: light-dark(#b45309, #fbbf24);
+  /* Secondary (warm grey) and status yellow. */
+  --violet: light-dark(#57534e, #78716c);
+  --violet-soft: light-dark(#44403c, #e7e5e4);
+  --amber-soft: light-dark(#a16207, #facc15);
 
-  --chip-teal-bg: light-dark(#eff6ff, #0f1b33);
-  --chip-teal-border: light-dark(#bfdbfe, #1e3a6b);
-  --chip-violet-bg: light-dark(#f5f3ff, #1b1630);
-  --chip-violet-border: light-dark(#ddd6fe, #3b2f66);
-  --chip-amber-bg: light-dark(#fffbeb, #241b08);
-  --chip-amber-border: light-dark(#fde68a, #4a3810);
+  --chip-teal-bg: light-dark(#fff7ed, #2a1508);
+  --chip-teal-border: light-dark(#fed7aa, #5a2d0c);
+  --chip-violet-bg: light-dark(#f5f5f4, #1f1d1b);
+  --chip-violet-border: light-dark(#d6d3d1, #3d3935);
+  --chip-amber-bg: light-dark(#fefce8, #231d06);
+  --chip-amber-border: light-dark(#fef08a, #4a3c0c);
 
   /* Placeholder fills (`tint`) and the accent drawn on them (`ink`); see lib/tones.ts. Avatars stay varied. */
   --tone-teal-tint: light-dark(#ccfbf1, #10302c);
   --tone-teal-ink: light-dark(#0f766e, #5eead4);
   --tone-violet-tint: light-dark(#ede9fe, #1e1a36);
   --tone-violet-ink: light-dark(#6d28d9, #c4b5fd);
-  --tone-amber-tint: light-dark(#fef3c7, #2c230f);
-  --tone-amber-ink: light-dark(#b45309, #fcd34d);
+  --tone-amber-tint: light-dark(#ffedd5, #2c1a0b);
+  --tone-amber-ink: light-dark(#c2410c, #fdba74);
   --tone-blue-tint: light-dark(#dbeafe, #11223d);
   --tone-blue-ink: light-dark(#1d4ed8, #93c5fd);
   --tone-rose-tint: light-dark(#ffe4e6, #361521);
   --tone-rose-ink: light-dark(#be123c, #fda4af);
   --tone-lime-tint: light-dark(#ecfccb, #1d2711);
   --tone-lime-ink: light-dark(#4d7c0f, #bef264);
-  --tone-slate-tint: light-dark(#e4e4e7, #1f1f23);
-  --tone-slate-ink: light-dark(#52525b, #a1a1aa);
+  --tone-slate-tint: light-dark(#e7e5e4, #211f1d);
+  --tone-slate-ink: light-dark(#57534e, #a8a29e);
 
   /* Translucent layers over photos, shadows and the hero backdrop. */
-  --overlay: light-dark(rgba(255, 255, 255, 0.82), rgba(10, 10, 11, 0.78));
-  --glass: light-dark(rgba(255, 255, 255, 0.88), rgba(19, 19, 21, 0.85));
-  --glass-strong: light-dark(rgba(255, 255, 255, 0.96), rgba(19, 19, 21, 0.95));
-  --stripe: light-dark(rgba(9, 9, 11, 0.04), rgba(255, 255, 255, 0.03));
-  --shadow: light-dark(rgba(9, 9, 11, 0.12), rgba(0, 0, 0, 0.5));
-  --cta-bg: light-dark(#f4f4f5, #131315);
-  --cta-border: light-dark(#e4e4e7, #26262b);
-  --ticker-outline: light-dark(#a1a1aa, #52525b);
-  --ticker-star: light-dark(#d4d4d8, #3f3f46);
-  --hero-ring-teal: light-dark(#dbeafe, #162036);
-  --hero-ring-violet: light-dark(#ede9fe, #1c1930);
-  --hero-ring: light-dark(#e4e4e7, #18181b);
-  --hero-staff: light-dark(#e4e4e7, #1c1c20);
+  --overlay: light-dark(rgba(255, 255, 255, 0.82), rgba(11, 10, 9, 0.78));
+  --glass: light-dark(rgba(255, 255, 255, 0.88), rgba(21, 20, 19, 0.85));
+  --glass-strong: light-dark(rgba(255, 255, 255, 0.96), rgba(21, 20, 19, 0.95));
+  --stripe: light-dark(rgba(12, 10, 9, 0.04), rgba(255, 255, 255, 0.03));
+  --shadow: light-dark(rgba(12, 10, 9, 0.12), rgba(0, 0, 0, 0.55));
+  --cta-bg: light-dark(#fff7ed, #151413);
+  --cta-border: light-dark(#fed7aa, #2c2825);
+  --ticker-outline: light-dark(#a8a29e, #57534e);
+  --ticker-star: light-dark(#fdba74, #7c3a12);
+  --hero-ring-teal: light-dark(#ffedd5, #2a1709);
+  --hero-ring-violet: light-dark(#e7e5e4, #1d1b19);
+  --hero-ring: light-dark(#e7e5e4, #1a1817);
+  --hero-staff: light-dark(#e7e5e4, #1e1c1a);
 
   /* App surfaces: the header capsule, inset rows inside cards and dialog-level panels. */
-  --capsule-bg: light-dark(rgba(255, 255, 255, 0.9), rgba(19, 19, 21, 0.92));
-  --rail-bg: light-dark(#f4f4f5, #0d0d0f);
-  --surface-raised: light-dark(#ffffff, #18181b);
-  --inset: light-dark(#f8f8f9, #0f0f11);
-  --line-soft: light-dark(#ececef, #222226);
-  --text-faint: light-dark(#7a7a83, #71717a);
-  --violet-ink: #ffffff;
-  --shadow-soft: light-dark(rgba(9, 9, 11, 0.06), rgba(0, 0, 0, 0.35));
-  --teal-glow: rgba(59, 130, 246, 0.28);
+  --capsule-bg: light-dark(rgba(255, 255, 255, 0.9), rgba(21, 20, 19, 0.92));
+  --rail-bg: light-dark(#f5f5f4, #0e0d0c);
+  --surface-raised: light-dark(#ffffff, #22201e);
+  --inset: light-dark(#f8f7f6, #171615);
+  --line-soft: light-dark(#eeecea, #282523);
+  --text-faint: light-dark(#7c756f, #78716c);
+  --violet-ink: light-dark(#ffffff, #0c0a09);
+  --shadow-soft: light-dark(rgba(12, 10, 9, 0.06), rgba(0, 0, 0, 0.4));
+  --teal-glow: rgba(249, 115, 22, 0.3);
   --success-bg: light-dark(#f0fdf4, #0b1f14);
   --success-border: light-dark(#bbf7d0, #14532d);
   --success-text: light-dark(#166534, #bbf7d0);
@@ -585,12 +589,6 @@ textarea.input {
 @keyframes spin {
   to {
     transform: rotate(360deg);
-  }
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
   }
 }
 
